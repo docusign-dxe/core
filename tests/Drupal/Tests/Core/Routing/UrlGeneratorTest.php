@@ -43,14 +43,14 @@ class UrlGeneratorTest extends UnitTestCase {
   /**
    * The alias manager.
    *
-   * @var \Drupal\Core\Path\AliasManager|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\Core\Path\AliasManager|\PHPUnit\Framework\MockObject\MockObject
    */
   protected $aliasManager;
 
   /**
    * The mock route processor manager.
    *
-   * @var \Drupal\Core\RouteProcessor\RouteProcessorManager|\PHPUnit_Framework_MockObject_MockObject
+   * @var \Drupal\Core\RouteProcessor\RouteProcessorManager|\PHPUnit\Framework\MockObject\MockObject
    */
   protected $routeProcessorManager;
 
@@ -509,7 +509,7 @@ class UrlGeneratorTest extends UnitTestCase {
    * \Drupal\Tests\Core\Render\MetadataBubblingUrlGeneratorTest work.
    */
   public function testGenerateWithPathProcessorChangingQueryParameter() {
-    $path_processor = $this->getMock(OutboundPathProcessorInterface::CLASS);
+    $path_processor = $this->createMock(OutboundPathProcessorInterface::CLASS);
     $path_processor->expects($this->atLeastOnce())
       ->method('processOutbound')
       ->willReturnCallback(function ($path, &$options = [], Request $request = NULL, BubbleableMetadata $bubbleable_metadata = NULL) {

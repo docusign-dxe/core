@@ -762,8 +762,8 @@
  * A typical service definition in a *.services.yml file looks like this:
  * @code
  * path.alias_manager:
- *   class: Drupal\Core\Path\AliasManager
- *   arguments: ['@path.crud', '@path.alias_whitelist', '@language_manager']
+ *   class: Drupal\path_alias\AliasManager
+ *   arguments: ['@path.crud', '@path_alias.whitelist', '@language_manager']
  * @endcode
  * Some services use other services as factories; a typical service definition
  * is:
@@ -1914,7 +1914,7 @@ function hook_cron() {
   // Long-running operation example, leveraging a queue:
   // Queue news feeds for updates once their refresh interval has elapsed.
   $queue = \Drupal::queue('aggregator_feeds');
-  $ids = \Drupal::entityManager()->getStorage('aggregator_feed')->getFeedIdsToRefresh();
+  $ids = \Drupal::entityTypeManager()->getStorage('aggregator_feed')->getFeedIdsToRefresh();
   foreach (Feed::loadMultiple($ids) as $feed) {
     if ($queue->createItem($feed)) {
       // Add timestamp to avoid queueing item more than once.

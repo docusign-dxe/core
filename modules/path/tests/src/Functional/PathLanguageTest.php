@@ -17,6 +17,11 @@ class PathLanguageTest extends PathTestBase {
   public static $modules = ['path', 'locale', 'locale_test', 'content_translation'];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * An user with permissions to administer content types.
    *
    * @var \Drupal\user\UserInterface
@@ -62,7 +67,7 @@ class PathLanguageTest extends PathTestBase {
     ];
     $this->drupalPostForm('admin/config/regional/content-language', $edit, t('Save configuration'));
 
-    $definitions = \Drupal::entityManager()->getFieldDefinitions('node', 'page');
+    $definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions('node', 'page');
     $this->assertTrue($definitions['path']->isTranslatable(), 'Node path is translatable.');
     $this->assertTrue($definitions['body']->isTranslatable(), 'Node body is translatable.');
   }
@@ -71,7 +76,7 @@ class PathLanguageTest extends PathTestBase {
    * Test alias functionality through the admin interfaces.
    */
   public function testAliasTranslation() {
-    $node_storage = $this->container->get('entity.manager')->getStorage('node');
+    $node_storage = $this->container->get('entity_type.manager')->getStorage('node');
     $english_node = $this->drupalCreateNode(['type' => 'page', 'langcode' => 'en']);
     $english_alias = $this->randomMachineName();
 
@@ -119,7 +124,7 @@ class PathLanguageTest extends PathTestBase {
     $languages = $this->container->get('language_manager')->getLanguages();
     $url = $english_node_french_translation->toUrl('canonical', ['language' => $languages['fr']])->toString();
 
-    $this->assertTrue(strpos($url, $edit['path[0][alias]']), 'URL contains the path alias.');
+    $this->assertContains($edit['path[0][alias]'], $url, 'URL contains the path alias.');
 
     // Confirm that the alias works even when changing language negotiation
     // options. Enable User language detection and selection over URL one.
@@ -184,11 +189,11 @@ class PathLanguageTest extends PathTestBase {
     // Confirm that the alias is removed if the translation is deleted.
     $english_node->removeTranslation('fr');
     $english_node->save();
-    $this->assertFalse($this->container->get('path.alias_storage')->aliasExists('/' . $french_alias, 'fr'), 'Alias for French translation is removed when translation is deleted.');
+    $this->assertPathAliasNotExists('/' . $french_alias, 'fr', NULL, 'Alias for French translation is removed when translation is deleted.');
 
     // Check that the English alias still works.
     $this->drupalGet($english_alias);
-    $this->assertTrue($this->container->get('path.alias_storage')->aliasExists('/' . $english_alias, 'en'), 'English alias is not deleted when French translation is removed.');
+    $this->assertPathAliasExists('/' . $english_alias, 'en', NULL, 'English alias is not deleted when French translation is removed.');
     $this->assertText($english_node->body->value, 'English alias still works');
   }
 

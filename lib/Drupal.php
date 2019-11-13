@@ -82,7 +82,7 @@ class Drupal {
   /**
    * The current system version.
    */
-  const VERSION = '8.7.7';
+  const VERSION = '8.8.0-beta1';
 
   /**
    * Core API compatibility.
@@ -270,6 +270,7 @@ class Drupal {
    *   correct interface or service.
    */
   public static function entityManager() {
+    @trigger_error("\Drupal::entityManager() is deprecated in Drupal 8.0.0 and will be removed before Drupal 9.0.0. Use \Drupal::entityTypeManager() instead in most cases. If the needed method is not on \Drupal\Core\Entity\EntityTypeManagerInterface, see the deprecated \Drupal\Core\Entity\EntityManager to find the correct interface or service. See https://www.drupal.org/node/2549139", E_USER_DEPRECATED);
     return static::getContainer()->get('entity.manager');
   }
 
@@ -605,17 +606,15 @@ class Drupal {
    *   A GeneratedLink object containing a link to the given route and
    *   parameters and bubbleable metadata.
    *
+   * @deprecated in drupal:8.0.0 and is removed from drupal:9.0.0. Use
+   * \Drupal\Core\Link::fromTextAndUrl() instead.
+   *
+   * @see https://www.drupal.org/node/2614344
    * @see \Drupal\Core\Utility\LinkGeneratorInterface::generate()
    * @see \Drupal\Core\Url
-   *
-   * @deprecated in Drupal 8.0.0 and will be removed before Drupal 9.0.0.
-   *   Use \Drupal\Core\Link instead.
-   *   Example:
-   *   @code
-   *     $link = Link::fromTextAndUrl($text, $url);
-   *   @endcode
    */
   public static function l($text, Url $url) {
+    @trigger_error('\Drupal::l() is deprecated in drupal:8.0.0 and is removed from drupal:9.0.0. Use \Drupal\Core\Link::fromTextAndUrl() instead. See https://www.drupal.org/node/2614344', E_USER_DEPRECATED);
     return static::getContainer()->get('link_generator')->generate($text, $url);
   }
 

@@ -162,16 +162,6 @@ EOD;
     if (ini_get('mbstring.encoding_translation') != 0) {
       return 'mbstring.encoding_translation';
     }
-    // mbstring.http_input and mbstring.http_output are deprecated and empty by
-    // default in PHP 5.6.
-    if (version_compare(PHP_VERSION, '5.6.0') == -1) {
-      if (ini_get('mbstring.http_input') != 'pass') {
-        return 'mbstring.http_input';
-      }
-      if (ini_get('mbstring.http_output') != 'pass') {
-        return 'mbstring.http_output';
-      }
-    }
 
     return '';
   }
@@ -566,8 +556,14 @@ EOD;
    *
    * @return string
    *   The flipped text.
+   *
+   * @deprecated in Drupal 8.8.0, will be removed before Drupal 9.0.0. There is
+   *   no direct replacement.
+   *
+   * @see https://www.drupal.org/node/3057322
    */
   public static function caseFlip($matches) {
+    @trigger_error('\Drupal\Component\Utility\Unicode::caseFlip() is deprecated in Drupal 8.8.0 and will be removed before Drupal 9.0.0. There is no direct replacement. See https://www.drupal.org/node/3057322', E_USER_DEPRECATED);
     return $matches[0][0] . chr(ord($matches[0][1]) ^ 32);
   }
 

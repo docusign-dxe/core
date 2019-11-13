@@ -36,11 +36,6 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
  * with them either.
  *
  * @see \Drupal\media_library\MediaLibraryOpenerInterface
- *
- * @internal
- *   Media Library is an experimental module and its internal code may be
- *   subject to change in minor releases. External code should not instantiate
- *   or extend this class.
  */
 class MediaLibraryState extends ParameterBag {
 
@@ -71,7 +66,7 @@ class MediaLibraryState extends ParameterBag {
    * @param array $opener_parameters
    *   (optional) Any additional opener-specific parameter values.
    *
-   * @return \Drupal\media_library\MediaLibraryState
+   * @return static
    *   A state object.
    */
   public static function create($opener_id, array $allowed_media_type_ids, $selected_type_id, $remaining_slots, array $opener_parameters = []) {
@@ -91,7 +86,7 @@ class MediaLibraryState extends ParameterBag {
    * @param \Symfony\Component\HttpFoundation\Request $request
    *   The request.
    *
-   * @return \Drupal\media_library\MediaLibraryState
+   * @return static
    *   A state object.
    *
    * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
@@ -179,13 +174,19 @@ class MediaLibraryState extends ParameterBag {
    */
   public function getHash() {
     // Create a hash from the required state parameters and the serialized
-    // optional opener-specific parameters.
+    // optional opener-specific parameters. Sort the allowed types and
+    // opener parameters so that differences in order do not result in
+    // different hashes.
+    $allowed_media_type_ids = array_values($this->getAllowedTypeIds());
+    sort($allowed_media_type_ids);
+    $opener_parameters = $this->getOpenerParameters();
+    ksort($opener_parameters);
     $hash = implode(':', [
       $this->getOpenerId(),
-      implode(':', $this->getAllowedTypeIds()),
+      implode(':', $allowed_media_type_ids),
       $this->getSelectedTypeId(),
       $this->getAvailableSlots(),
-      serialize($this->getOpenerParameters()),
+      serialize($opener_parameters),
     ]);
 
     return Crypt::hmacBase64($hash, \Drupal::service('private_key')->get() . Settings::getHashSalt());
@@ -201,7 +202,7 @@ class MediaLibraryState extends ParameterBag {
    *   The hashed parameters.
    */
   public function isValidHash($hash) {
-    return Crypt::hashEquals($this->getHash(), $hash);
+    return hash_equals($this->getHash(), $hash);
   }
 
   /**
