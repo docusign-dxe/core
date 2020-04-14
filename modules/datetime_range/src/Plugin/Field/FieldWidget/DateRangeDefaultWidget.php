@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\datetime_range\Plugin\Field\FieldType\DateRangeItem;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItem;
 
 /**
  * Plugin implementation of the 'daterange_default' widget.
@@ -42,6 +43,15 @@ class DateRangeDefaultWidget extends DateRangeWidgetBase implements ContainerFac
   /**
    * {@inheritdoc}
    */
+  public static function defaultSettings() {
+    return [
+      'date_increment' => '1',
+    ] + parent::defaultSettings();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $plugin_id,
@@ -58,6 +68,9 @@ class DateRangeDefaultWidget extends DateRangeWidgetBase implements ContainerFac
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element = parent::formElement($items, $delta, $element, $form, $form_state);
+
+    $element['value']['#date_increment'] = $this->getSetting('date_increment');
+    $element['end_value']['#date_increment'] = $this->getSetting('date_increment');
 
     // Identify the type of date and time elements to use.
     switch ($this->getFieldSetting('datetime_type')) {
@@ -96,6 +109,36 @@ class DateRangeDefaultWidget extends DateRangeWidgetBase implements ContainerFac
     ];
 
     return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function settingsForm(array $form, FormStateInterface $form_state) {
+    $datetime_type = $this->getFieldSetting('datetime_type');
+
+    if ($datetime_type === DateTimeItem::DATETIME_TYPE_DATETIME) {
+      // Create the date increment element. Default to one second.
+      $element['date_increment'] = [
+        '#type' => 'number',
+        '#title' => $this->t('Step'),
+        '#description' => $this->t('The number of seconds the element will step over. If the value is a multiple of 60, seconds will be disabled in the element. If the value is a multiple of 3600, minutes will be disabled.'),
+        '#default_value' => $this->getSetting('date_increment'),
+      ];
+    }
+    return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function settingsSummary() {
+    $datetime_type = $this->getFieldSetting('datetime_type');
+
+    if ($datetime_type === DateTimeItem::DATETIME_TYPE_DATETIME) {
+      return [$this->t('Step: @step', ['@step' => $this->getSetting('date_increment')])];
+    }
+    return [];
   }
 
 }

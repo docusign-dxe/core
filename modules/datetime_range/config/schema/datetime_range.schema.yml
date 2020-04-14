@@ -71,3 +71,7 @@ field.widget.settings.daterange_datelist:
 field.widget.settings.daterange_default:
   type: mapping
   label: 'Date range default display format settings'
+  mapping:
+    date_increment:
+      type: integer
+      label: 'Date Increment'

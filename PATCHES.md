@@ -1,3 +1,4 @@
 - Fixes Translated field denormalization creates duplicate values: https://www.drupal.org/project/drupal/issues/2904423#comment-13168513
 - Adds a "site:base-url" token that gets the base url reliably regardless of language resolution: on https://www.drupal.org/project/drupal/issues/1088112#comment-13527340  
 - Validates image dimensions constraints on image fields that reference media entities: https://www.drupal.org/project/drupal/issues/3008292#comment-13387322
+- Allows to select only a date in the DateTime field: https://www.drupal.org/project/drupal/issues/2699895#comment-13444850

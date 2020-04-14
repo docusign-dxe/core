@@ -91,7 +91,7 @@ class MigrateFieldWidgetSettingsTest extends MigrateDrupal6TestBase {
     $component = $form_display->getComponent('field_test_date');
     $expected['type'] = 'datetime_default';
     $expected['weight'] = 10;
-    $expected['settings'] = [];
+    $expected['settings'] = ['date_increment' => 1];
     $this->assertIdentical($expected, $component);
 
     $component = $form_display->getComponent('field_test_datestamp');
