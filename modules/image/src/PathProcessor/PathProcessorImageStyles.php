@@ -3,7 +3,6 @@
 namespace Drupal\image\PathProcessor;
 
 use Drupal\Core\PathProcessor\InboundPathProcessorInterface;
-use Drupal\Core\Site\Settings;
 use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
