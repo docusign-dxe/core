@@ -3,7 +3,6 @@
 namespace Drupal\image\Routing;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Site\Settings;
 use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route;
@@ -51,20 +50,10 @@ class ImageStyleRoutes implements ContainerInjectionInterface {
     // disabled image derivatives will always be served through the menu system.
     // If clean URLs are enabled and the image derivative already exists, PHP
     // will be bypassed.
-    $directory_path = NULL;
-    $files_base_url = Settings::get('file_public_base_url', '');
-    if ($files_base_url) {
-      $url_parts = parse_url($files_base_url);
-      if (isset($url_parts['path'])) {
-        $directory_path = $url_parts['path'];
-      }
-    }
-    if (!$directory_path) {
-      $directory_path = '/' . $this->streamWrapperManager->getViaScheme('public')->getDirectoryPath();
-    }
+    $directory_path = $this->streamWrapperManager->getViaScheme('public')->getDirectoryPath();
 
     $routes['image.style_public'] = new Route(
-      $directory_path . '/styles/{image_style}/{scheme}',
+      '/' . $directory_path . '/styles/{image_style}/{scheme}',
       [
         '_controller' => 'Drupal\image\Controller\ImageStyleDownloadController::deliver',
       ],
