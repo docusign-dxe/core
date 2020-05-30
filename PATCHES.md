@@ -2,3 +2,4 @@
 - Adds a "site:base-url" token that gets the base url reliably regardless of language resolution: on https://www.drupal.org/project/drupal/issues/1088112#comment-13527340  
 - Validates image dimensions constraints on image fields that reference media entities: https://www.drupal.org/project/drupal/issues/3008292#comment-13387322
 - The "moderation_state" base field overrides cause install from existing config to fail: https://www.drupal.org/project/drupal/issues/3129874#comment-13576278
+- Functionality: Teaser image maximum can be exceeded causing error user cannot resolve: https://www.drupal.org/project/drupal/issues/3059955#comment-13405553
