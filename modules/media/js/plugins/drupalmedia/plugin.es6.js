@@ -337,7 +337,7 @@
           const editButton = CKEDITOR.dom.element.createFromHtml(
             Drupal.theme('mediaEmbedEditButton'),
           );
-          embeddedMedia.getFirst().insertBeforeMe(editButton);
+          embeddedMedia.insertBeforeMe(editButton);
 
           // Make the edit button do things.
           const widget = this;
