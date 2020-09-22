@@ -20,7 +20,19 @@ class LanguageSwitchingTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = ['locale', 'locale_test', 'language', 'block', 'language_test', 'menu_ui'];
+  public static $modules = [
+    'locale',
+    'locale_test',
+    'language',
+    'block',
+    'language_test',
+    'menu_ui',
+  ];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
 
   /**
    * {@inheritdoc}
@@ -31,7 +43,11 @@ class LanguageSwitchingTest extends BrowserTestBase {
     parent::setUp();
 
     // Create and log in user.
-    $admin_user = $this->drupalCreateUser(['administer blocks', 'administer languages', 'access administration pages']);
+    $admin_user = $this->drupalCreateUser([
+      'administer blocks',
+      'administer languages',
+      'access administration pages',
+    ]);
     $this->drupalLogin($admin_user);
   }
 

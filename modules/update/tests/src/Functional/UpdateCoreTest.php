@@ -40,7 +40,11 @@ class UpdateCoreTest extends UpdateTestBase {
 
   protected function setUp() {
     parent::setUp();
-    $admin_user = $this->drupalCreateUser(['administer site configuration', 'administer modules', 'administer themes']);
+    $admin_user = $this->drupalCreateUser([
+      'administer site configuration',
+      'administer modules',
+      'administer themes',
+      ]);
     $this->drupalLogin($admin_user);
     $this->drupalPlaceBlock('local_actions_block');
   }
@@ -98,7 +102,7 @@ class UpdateCoreTest extends UpdateTestBase {
 
     // Ensure that the update check requires a token.
     $this->drupalGet('admin/reports/updates/check');
-    $this->assertResponse(403, 'Accessing admin/reports/updates/check without a CSRF token results in access denied.');
+    $this->assertSession()->statusCodeEquals(403);
 
     foreach ([0, 1] as $minor_version) {
       foreach (['-alpha1', '-beta1', ''] as $extra_version) {
@@ -134,6 +138,7 @@ class UpdateCoreTest extends UpdateTestBase {
               $this->assertRaw('check.svg', 'Check icon was found.');
             }
             break;
+
           case 1:
             // Both stable and unstable releases are available.
             // A stable release is the latest.
@@ -355,6 +360,14 @@ class UpdateCoreTest extends UpdateTestBase {
         'expected_update_message_type' => static::UPDATE_NONE,
         'fixture' => 'sec.0.2-rc2',
       ],
+      // Ensure that 8.0.2 security release is not shown because it is earlier
+      // version than 1.0.
+      '1.0, 0.2 1.2' => [
+        'site_patch_version' => '1.0',
+        'expected_security_releases' => ['1.2', '2.0-rc2'],
+        'expected_update_message_type' => static::SECURITY_UPDATE_REQUIRED,
+        'fixture' => 'sec.0.2-rc2',
+      ],
     ];
     $pre_releases = [
       '2.0-alpha1',
@@ -365,25 +378,245 @@ class UpdateCoreTest extends UpdateTestBase {
       '2.0-rc2',
     ];
 
-    // If the site is on an alpha/beta/RC of an upcoming minor and none of the
-    // alpha/beta/RC versions are marked insecure, no security update should be
-    // required.
     foreach ($pre_releases as $pre_release) {
+      // If the site is on an alpha/beta/RC of an upcoming minor and none of the
+      // alpha/beta/RC versions are marked insecure, no security update should
+      // be required.
       $test_cases["Pre-release:$pre_release, no security update"] = [
         'site_patch_version' => $pre_release,
         'expected_security_releases' => [],
         'expected_update_message_type' => $pre_release === '2.0-rc2' ? static::UPDATE_NONE : static::UPDATE_AVAILABLE,
         'fixture' => 'sec.0.2-rc2-b',
       ];
+      // If the site is on an alpha/beta/RC of an upcoming minor and there is
+      // an RC version with a security update, it should be recommended.
+      $test_cases["Pre-release:$pre_release, security update"] = [
+        'site_patch_version' => $pre_release,
+        'expected_security_releases' => $pre_release === '2.0-rc2' ? [] : ['2.0-rc2'],
+        'expected_update_message_type' => $pre_release === '2.0-rc2' ? static::UPDATE_NONE : static::SECURITY_UPDATE_REQUIRED,
+        'fixture' => 'sec.0.2-rc2',
+      ];
+    }
+    return $test_cases;
+  }
+
+  /**
+   * Tests the security coverage messages for Drupal core versions.
+   *
+   * @param string $installed_version
+   *   The installed Drupal version to test.
+   * @param string $fixture
+   *   The test fixture that contains the test XML.
+   * @param string $requirements_section_heading
+   *   The requirements section heading.
+   * @param string $message
+   *   The expected coverage message.
+   * @param string $mock_date
+   *   The mock date to use if needed in the format CCYY-MM-DD. If an empty
+   *   string is provided, no mock date will be used.
+   *
+   * @dataProvider securityCoverageMessageProvider
+   */
+  public function testSecurityCoverageMessage($installed_version, $fixture, $requirements_section_heading, $message, $mock_date) {
+    \Drupal::state()->set('update_test.mock_date', $mock_date);
+    $this->setSystemInfo($installed_version);
+    $this->refreshUpdateStatus(['drupal' => $fixture]);
+    $this->drupalGet('admin/reports/status');
+
+    if (empty($requirements_section_heading)) {
+      $this->assertSession()->pageTextNotContains('Drupal core security coverage');
+      return;
     }
 
-    // @todo In https://www.drupal.org/node/2865920 add test cases:
-    //   - For all pre-releases for 8.2.0 except 8.2.0-rc2 using the
-    //     'sec.0.2-rc2' fixture to ensure that 8.2.0-rc2 is the only security
-    //     update.
-    //   - For 8.1.0 using fixture 'sec.0.2-rc2' to ensure that only security
-    //     updates are 8.1.2 and 8.2.0-rc2.
+    $all_requirements_details = $this->getSession()->getPage()->findAll(
+      'css',
+      'details.system-status-report__entry:contains("Drupal core security coverage")'
+    );
+    // Ensure we only have 1 security message section.
+    $this->assertCount(1, $all_requirements_details);
+    $requirements_details = $all_requirements_details[0];
+    // Ensure that messages are under the correct heading which could be
+    // 'Checked', 'Warnings found', or 'Errors found'.
+    $requirements_section_element = $requirements_details->getParent();
+    $this->assertCount(1, $requirements_section_element->findAll('css', "h3:contains('$requirements_section_heading')"));
+    $actual_message = $requirements_details->find('css', 'div.system-status-report__entry__value')->getText();
+    $this->assertNotEmpty($actual_message);
+    $this->assertEquals($message, $actual_message);
+  }
+
+  /**
+   * Dataprovider for testSecurityCoverageMessage().
+   *
+   * These test cases rely on the following fixtures containing the following
+   * releases:
+   * - drupal.sec.2.0_3.0-rc1.xml
+   *   - 8.2.0
+   *   - 8.3.0-rc1
+   * - drupal.sec.2.0.xml
+   *   - 8.2.0
+   * - drupal.sec.2.0_9.0.0.xml
+   *   - 8.2.0
+   *   - 9.0.0
+   * - drupal.sec.9.0.xml
+   *   - 8.9.0
+   * - drupal.sec.9.9.0.xml
+   *   - 9.9.0
+   */
+  public function securityCoverageMessageProvider() {
+    $release_coverage_message = 'Visit the release cycle overview for more information on supported releases.';
+    $coverage_ended_message = 'Coverage has ended';
+    $update_asap_message = 'Update to a supported minor as soon as possible to continue receiving security updates.';
+    $update_soon_message = 'Update to a supported minor version soon to continue receiving security updates.';
+    $test_cases = [
+      '8.0.0, unsupported' => [
+        'installed_version' => '8.0.0',
+        'fixture' => 'sec.2.0_3.0-rc1',
+        'requirements_section_heading' => 'Errors found',
+        'message' => "$coverage_ended_message $update_asap_message $release_coverage_message",
+        'mock_date' => '',
+      ],
+      '8.1.0, supported with 3rc' => [
+        'installed_version' => '8.1.0',
+        'fixture' => 'sec.2.0_3.0-rc1',
+        'requirements_section_heading' => 'Warnings found',
+        'message' => "Covered until 8.3.0 Update to 8.2 or higher soon to continue receiving security updates. $release_coverage_message",
+        'mock_date' => '',
+      ],
+      '8.1.0, supported' => [
+        'installed_version' => '8.1.0',
+        'fixture' => 'sec.2.0',
+        'requirements_section_heading' => 'Warnings found',
+        'message' => "Covered until 8.3.0 Update to 8.2 or higher soon to continue receiving security updates. $release_coverage_message",
+        'mock_date' => '',
+      ],
+      '8.2.0, supported with 3rc' => [
+        'installed_version' => '8.2.0',
+        'fixture' => 'sec.2.0_3.0-rc1',
+        'requirements_section_heading' => 'Checked',
+        'message' => "Covered until 8.4.0 $release_coverage_message",
+        'mock_date' => '',
+      ],
+      '8.2.0, supported' => [
+        'installed_version' => '8.2.0',
+        'fixture' => 'sec.2.0',
+        'requirements_section_heading' => 'Checked',
+        'message' => "Covered until 8.4.0 $release_coverage_message",
+        'mock_date' => '',
+      ],
+      // Ensure we don't show messages for pre-release or dev versions.
+      '8.2.0-beta2, no message' => [
+        'installed_version' => '8.2.0-beta2',
+        'fixture' => 'sec.2.0_3.0-rc1',
+        'requirements_section_heading' => '',
+        'message' => '',
+        'mock_date' => '',
+      ],
+      '8.1.0-dev, no message' => [
+        'installed_version' => '8.1.0-dev',
+        'fixture' => 'sec.2.0_3.0-rc1',
+        'requirements_section_heading' => '',
+        'message' => '',
+        'mock_date' => '',
+      ],
+      // Ensures the message is correct if the next major version has been
+      // released and the additional minors indicated by
+      // CORE_MINORS_WITH_SECURITY_COVERAGE minors have been released.
+      '8.0.0, 9 unsupported' => [
+        'installed_version' => '8.0.0',
+        'fixture' => 'sec.2.0_9.0.0',
+        'requirements_section_heading' => 'Errors found',
+        'message' => "$coverage_ended_message $update_asap_message $release_coverage_message",
+        'mock_date' => '',
+      ],
+      // Ensures the message is correct if the next major version has been
+      // released and the additional minors indicated by
+      // CORE_MINORS_WITH_SECURITY_COVERAGE minors have not been released.
+      '8.2.0, 9 warning' => [
+        'installed_version' => '8.2.0',
+        'fixture' => 'sec.2.0_9.0.0',
+        'requirements_section_heading' => 'Warnings found',
+        'message' => "Covered until 8.4.0 Update to 8.3 or higher soon to continue receiving security updates. $release_coverage_message",
+        'mock_date' => '',
+      ],
+    ];
+
+    // Drupal 8.8.x test cases.
+    $test_cases += [
+      // Ensure that a message is displayed during 8.8's active support.
+      '8.8.0, supported' => [
+        'installed_version' => '8.8.0',
+        'fixture' => 'sec.9.0',
+        'requirements_section_heading' => 'Checked',
+        'message' => "Covered until 2020-Dec-02 $release_coverage_message",
+        'mock_date' => '2020-06-01',
+      ],
+      // Ensure a warning is displayed if less than six months remain until the
+      // end of 8.8's security coverage.
+      '8.8.0, supported, 6 months warn' => [
+        'installed_version' => '8.8.0',
+        'fixture' => 'sec.9.0',
+        'requirements_section_heading' => 'Warnings found',
+        'message' => "Covered until 2020-Dec-02 $update_soon_message $release_coverage_message",
+        'mock_date' => '2020-06-02',
+      ],
+    ];
+    // Ensure that the message does not change, including on the last day of
+    // security coverage.
+    $test_cases['8.8.0, supported, last day warn'] = $test_cases['8.8.0, supported, 6 months warn'];
+    $test_cases['8.8.0, supported, last day warn']['mock_date'] = '2020-12-01';
+
+    // Ensure that if the 8.8 support window is finished a message is
+    // displayed.
+    $test_cases['8.8.0, support over'] = [
+      'installed_version' => '8.8.0',
+      'fixture' => 'sec.9.0',
+      'requirements_section_heading' => 'Errors found',
+      'message' => "$coverage_ended_message $update_asap_message $release_coverage_message",
+      'mock_date' => '2020-12-02',
+    ];
+
+    // Drupal 8.9 LTS test cases.
+    $test_cases['8.9.0, lts supported'] = [
+      'installed_version' => '8.9.0',
+      'fixture' => 'sec.9.0',
+      'requirements_section_heading' => 'Checked',
+      'message' => "Covered until 2021-Nov $release_coverage_message",
+      'mock_date' => '2021-01-01',
+    ];
+    // Ensure that the message does not change, including on the last day of
+    // security coverage.
+    $test_cases['8.9.0, lts supported, last day'] = $test_cases['8.9.0, lts supported'];
+    $test_cases['8.9.0, lts supported, last day']['mock_date'] = '2021-10-31';
+
+    // Ensure that if LTS support window is finished a message is displayed.
+    $test_cases['8.9.0, lts support over'] = [
+      'installed_version' => '8.9.0',
+      'fixture' => 'sec.9.0',
+      'requirements_section_heading' => 'Errors found',
+      'message' => "$coverage_ended_message $update_asap_message $release_coverage_message",
+      'mock_date' => '2021-11-01',
+    ];
+
+    // Drupal 9 test cases.
+    $test_cases += [
+      // Ensure the end dates for 8.8 and 8.9 only apply to major version 8.
+      '9.9.0' => [
+        'installed_version' => '9.9.0',
+        'fixture' => 'sec.9.9.0',
+        'requirements_section_heading' => 'Checked',
+        'message' => "Covered until 9.11.0 $release_coverage_message",
+        'mock_date' => '',
+      ],
+      '9.8.0' => [
+        'installed_version' => '9.8.0',
+        'fixture' => 'sec.9.9.0',
+        'requirements_section_heading' => 'Warnings found',
+        'message' => "Covered until 9.10.0 Update to 9.9 or higher soon to continue receiving security updates. $release_coverage_message",
+        'mock_date' => '',
+      ],
+    ];
     return $test_cases;
+
   }
 
   /**
@@ -804,7 +1037,12 @@ class UpdateCoreTest extends UpdateTestBase {
    * Ensures that the local actions appear.
    */
   public function testLocalActions() {
-    $admin_user = $this->drupalCreateUser(['administer site configuration', 'administer modules', 'administer software updates', 'administer themes']);
+    $admin_user = $this->drupalCreateUser([
+      'administer site configuration',
+      'administer modules',
+      'administer software updates',
+      'administer themes',
+    ]);
     $this->drupalLogin($admin_user);
 
     $this->drupalGet('admin/modules');
@@ -854,7 +1092,7 @@ class UpdateCoreTest extends UpdateTestBase {
    *    'supported_branches' is '8.0.,8.1.'.
    * - drupal.1.0-unsupported.xml
    *    'supported_branches' is '8.1.'.
-   * They both have an '8.0.3' release that that has the 'Release type' value of
+   * They both have an '8.0.3' release that has the 'Release type' value of
    * 'unsupported' and an '8.1.0' release that has the 'Release type' value of
    * 'supported' and is the expected update.
    */

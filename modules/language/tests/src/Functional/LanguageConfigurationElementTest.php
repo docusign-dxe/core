@@ -20,7 +20,18 @@ class LanguageConfigurationElementTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = ['taxonomy', 'node', 'language', 'language_elements_test', 'field_ui'];
+  public static $modules = [
+    'taxonomy',
+    'node',
+    'language',
+    'language_elements_test',
+    'field_ui',
+  ];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
 
   /**
    * {@inheritdoc}
@@ -29,7 +40,11 @@ class LanguageConfigurationElementTest extends BrowserTestBase {
 
   protected function setUp() {
     parent::setUp();
-    $user = $this->drupalCreateUser(['access administration pages', 'administer languages', 'administer content types']);
+    $user = $this->drupalCreateUser([
+      'access administration pages',
+      'administer languages',
+      'administer content types',
+    ]);
     $this->drupalLogin($user);
   }
 

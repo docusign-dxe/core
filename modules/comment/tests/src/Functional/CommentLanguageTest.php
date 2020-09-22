@@ -27,7 +27,17 @@ class CommentLanguageTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = ['node', 'language', 'language_test', 'comment_test'];
+  public static $modules = [
+    'node',
+    'language',
+    'language_test',
+    'comment_test',
+  ];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
 
   /**
    * {@inheritdoc}
@@ -40,7 +50,17 @@ class CommentLanguageTest extends BrowserTestBase {
     $this->drupalCreateContentType(['type' => 'article', 'name' => 'Article']);
 
     // Create and log in user.
-    $admin_user = $this->drupalCreateUser(['administer site configuration', 'administer languages', 'access administration pages', 'administer content types', 'administer comments', 'create article content', 'access comments', 'post comments', 'skip comment approval']);
+    $admin_user = $this->drupalCreateUser([
+      'administer site configuration',
+      'administer languages',
+      'access administration pages',
+      'administer content types',
+      'administer comments',
+      'create article content',
+      'access comments',
+      'post comments',
+      'skip comment approval',
+    ]);
     $this->drupalLogin($admin_user);
 
     // Add language.

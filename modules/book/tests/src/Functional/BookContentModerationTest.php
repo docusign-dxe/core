@@ -20,7 +20,17 @@ class BookContentModerationTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = ['book', 'block', 'book_test', 'content_moderation'];
+  public static $modules = [
+    'book',
+    'block',
+    'book_test',
+    'content_moderation',
+  ];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
 
   /**
    * {@inheritdoc}
@@ -41,7 +51,16 @@ class BookContentModerationTest extends BrowserTestBase {
     $workflow->save();
 
     // We need a user with additional content moderation permissions.
-    $this->bookAuthor = $this->drupalCreateUser(['create new books', 'create book content', 'edit own book content', 'add content to books', 'access printer-friendly version', 'view any unpublished content', 'use editorial transition create_new_draft', 'use editorial transition publish']);
+    $this->bookAuthor = $this->drupalCreateUser([
+      'create new books',
+      'create book content',
+      'edit own book content',
+      'add content to books',
+      'access printer-friendly version',
+      'view any unpublished content',
+      'use editorial transition create_new_draft',
+      'use editorial transition publish',
+    ]);
   }
 
   /**

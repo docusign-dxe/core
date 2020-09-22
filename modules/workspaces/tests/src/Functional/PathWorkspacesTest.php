@@ -19,7 +19,18 @@ class PathWorkspacesTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected static $modules = ['block', 'content_translation', 'node', 'path', 'workspaces'];
+  protected static $modules = [
+    'block',
+    'content_translation',
+    'node',
+    'path',
+    'workspaces',
+  ];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
 
   /**
    * {@inheritdoc}
