@@ -1,3 +1,4 @@
 - Fixes Translated field denormalization creates duplicate values: https://www.drupal.org/project/drupal/issues/2904423#comment-13168513
 - Adds a "site:base-url" token that gets the base url reliably regardless of language resolution: on https://www.drupal.org/project/drupal/issues/1088112#comment-13708920
 - Validates image dimensions constraints on image fields that reference media entities: https://www.drupal.org/project/drupal/issues/3008292#comment-13387322
+- The "moderation_state" base field overrides cause install from existing config to fail: https://www.drupal.org/project/drupal/issues/3129874#comment-13576278

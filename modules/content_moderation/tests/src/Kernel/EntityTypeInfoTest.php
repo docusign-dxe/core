@@ -6,6 +6,8 @@ use Drupal\content_moderation\Entity\Handler\ModerationHandler;
 use Drupal\content_moderation\EntityTypeInfo;
 use Drupal\entity_test\Entity\EntityTestBundle;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\node\Entity\Node;
+use Drupal\node\Entity\NodeType;
 use Drupal\Tests\content_moderation\Traits\ContentModerationTestTrait;
 
 /**
@@ -26,6 +28,8 @@ class EntityTypeInfoTest extends KernelTestBase {
     'content_moderation',
     'workflows',
     'entity_test',
+    'system',
+    'node',
   ];
 
   /**
@@ -111,21 +115,23 @@ class EntityTypeInfoTest extends KernelTestBase {
    * @covers ::entityBaseFieldInfo
    */
   public function testBaseFieldOnlyAddedToModeratedEntityTypes() {
-    $definition = $this->entityTypeManager->getDefinition('entity_test_with_bundle');
+    $definition = $this->entityTypeManager->getDefinition('node');
 
-    EntityTestBundle::create([
-      'id' => 'moderated',
-    ])->save();
-    EntityTestBundle::create([
-      'id' => 'unmoderated',
-    ])->save();
-
-    $base_fields = $this->entityTypeInfo->entityBaseFieldInfo($definition);
-    $this->assertFalse(isset($base_fields['moderation_state']));
-
-    $this->enableModeration('entity_test_with_bundle', 'moderated');
     $base_fields = $this->entityTypeInfo->entityBaseFieldInfo($definition);
     $this->assertTrue(isset($base_fields['moderation_state']));
+    $moderation_state = $base_fields['moderation_state'];
+    $this->assertFalse($moderation_state->isDisplayConfigurable('form'));
+    $this->assertNull($moderation_state->getDisplayOptions('view'));
+
+    NodeType::create(['type' => 'moderated', 'name' => 'Moderated bundle'])->save();
+    NodeType::create(['type' => 'unmoderated', 'name' => 'Un-moderated bundle'])->save();
+    $this->enableModeration('node', 'moderated');
+
+    $base_fields = $this->entityTypeInfo->entityBaseFieldInfo($definition);
+    $this->assertTrue(isset($base_fields['moderation_state']));
+    $moderation_state = $base_fields['moderation_state'];
+    $this->assertTrue($moderation_state->isDisplayConfigurable('form'));
+    $this->assertNotNull($moderation_state->getDisplayOptions('view'));
   }
 
   /**
