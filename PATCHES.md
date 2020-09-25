@@ -1,0 +1,1 @@
+- Fixes Translated field denormalization creates duplicate values: https://www.drupal.org/project/drupal/issues/2904423#comment-13168513
