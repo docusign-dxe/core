@@ -1,1 +1,2 @@
 - Fixes Translated field denormalization creates duplicate values: https://www.drupal.org/project/drupal/issues/2904423#comment-13168513
+- Adds a "site:base-url" token that gets the base url reliably regardless of language resolution: on https://www.drupal.org/project/drupal/issues/1088112#comment-13708920
