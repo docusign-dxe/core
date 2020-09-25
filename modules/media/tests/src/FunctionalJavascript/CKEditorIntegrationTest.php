@@ -93,6 +93,7 @@ class CKEditorIntegrationTest extends WebDriverTestBase {
         'filter_align' => ['status' => TRUE],
         'filter_caption' => ['status' => TRUE],
         'media_embed' => ['status' => TRUE],
+        'filter_autop' => ['status' => TRUE],
       ],
     ])->save();
     Editor::create([
