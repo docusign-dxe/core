@@ -42,6 +42,7 @@ class FormTestFormStateValuesCleanAdvancedForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $form_state->cleanValues();
+    http_response_code(200);
     print t('You WIN!');
     exit;
   }
