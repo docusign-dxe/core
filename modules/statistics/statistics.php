@@ -28,3 +28,5 @@ if ($views) {
     $container->get('statistics.storage.node')->recordView($nid);
   }
 }
+
+http_response_code(204);

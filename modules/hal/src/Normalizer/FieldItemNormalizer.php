@@ -2,7 +2,9 @@
 
 namespace Drupal\hal\Normalizer;
 
+use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\TypedData\TypedDataInternalPropertiesHelper;
 use Drupal\serialization\Normalizer\FieldableEntityNormalizerTrait;
 use Drupal\serialization\Normalizer\SerializedColumnNormalizerTrait;
@@ -120,9 +122,43 @@ class FieldItemNormalizer extends NormalizerBase {
 
     // Instead, create a new item for the entity in the requested language.
     $entity = $item->getEntity();
-    $entity_translation = $entity->hasTranslation($langcode) ? $entity->getTranslation($langcode) : $entity->addTranslation($langcode);
+    // Get the translated entity, or create it if it does not exist.
+    $entity_translation = $entity->hasTranslation($langcode) ? $entity->getTranslation($langcode) : $this->createTranslatedEntity($entity, $langcode);
     $field_name = $item->getFieldDefinition()->getName();
-    return $entity_translation->get($field_name)->appendItem();
+    $field = $entity_translation->get($field_name);
+    $cardinality = $item->getFieldDefinition()->getFieldStorageDefinition()->getCardinality();
+    if ($cardinality === FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED || count($field) < $cardinality) {
+      return $field->appendItem();
+    }
+    return $field->first();
+  }
+
+  /**
+   * Create an empty entity translation to fill with field data.
+   *
+   * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
+   *   The untranslated entity.
+   * @param string $langcode
+   *   The langcode.
+   *
+   * @return \Drupal\Core\Entity\FieldableEntityInterface
+   *   The translated entity.
+   *
+   * @throws \Drupal\Core\TypedData\Exception\ReadOnlyException
+   */
+  protected function createTranslatedEntity(FieldableEntityInterface $entity, $langcode) {
+    // Create a new translation.
+    /** @var \Drupal\Core\TypedData\TranslatableInterface $entity */
+    /** @var \Drupal\Core\Entity\FieldableEntityInterface $entity_translation */
+    $entity_translation = $entity->addTranslation($langcode);
+
+    // Remove all default values, except for the langcode.
+    $translated_fields = $entity_translation->getTranslatableFields(FALSE);
+    unset($translated_fields['langcode']);
+    foreach ($translated_fields as $field) {
+      $field->setValue([]);
+    }
+    return $entity_translation;
   }
 
 }

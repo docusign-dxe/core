@@ -76,7 +76,6 @@ class ModerationStateNodeTest extends ModerationStateTestBase {
     if (!$node) {
       $this->fail('Non-moderated test node was not saved correctly.');
     }
-    $this->assertFalse($node->hasField('moderation_state'));
   }
 
   /**

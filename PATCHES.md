@@ -1,0 +1,7 @@
+- Fixes Translated field denormalization creates duplicate values: https://www.drupal.org/project/drupal/issues/2904423#comment-13168513
+- Adds a "site:base-url" token that gets the base url reliably regardless of language resolution: on https://www.drupal.org/project/drupal/issues/1088112#comment-13708920
+- Validates image dimensions constraints on image fields that reference media entities: https://www.drupal.org/project/drupal/issues/3008292#comment-13387322
+- The "moderation_state" base field overrides cause install from existing config to fail: https://www.drupal.org/project/drupal/issues/3129874#comment-13576278
+- Functionality: Teaser image maximum can be exceeded causing error user cannot resolve: https://www.drupal.org/project/drupal/issues/3059955#comment-13405553
+- If a filter wraps the drupal-media tag in a paragraph, the edit button breaks: https://www.drupal.org/project/drupal/issues/3097338#comment-13385746
+- Default all responses to 500 before any code is run so PHP will throw 500's on FATAL errors: https://www.drupal.org/project/drupal/issues/2688999#comment-12269900
