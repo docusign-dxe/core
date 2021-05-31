@@ -243,7 +243,7 @@ class EntityTypeInfo implements ContainerInjectionInterface {
    * @see hook_entity_base_field_info()
    */
   public function entityBaseFieldInfo(EntityTypeInterface $entity_type) {
-    if (!$this->moderationInfo->isModeratedEntityType($entity_type)) {
+    if (!$this->moderationInfo->canModerateEntitiesOfEntityType($entity_type)) {
       return [];
     }
 
@@ -253,21 +253,25 @@ class EntityTypeInfo implements ContainerInjectionInterface {
       ->setDescription(t('The moderation state of this piece of content.'))
       ->setComputed(TRUE)
       ->setClass(ModerationStateFieldItemList::class)
-      ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'region' => 'hidden',
-        'weight' => -5,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'moderation_state_default',
-        'weight' => 100,
-        'settings' => [],
-      ])
       ->addConstraint('ModerationState', [])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', FALSE)
       ->setReadOnly(FALSE)
       ->setTranslatable(TRUE);
+
+    if ($this->moderationInfo->isModeratedEntityType($entity_type)) {
+      $fields['moderation_state']
+        ->setDisplayConfigurable('form', TRUE)
+        ->setDisplayOptions('form', [
+          'type' => 'moderation_state_default',
+          'weight' => 100,
+          'settings' => [],
+        ])
+        ->setDisplayConfigurable('view', FALSE)
+        ->setDisplayOptions('view', [
+          'label' => 'hidden',
+          'region' => 'hidden',
+          'weight' => -5,
+        ]);
+    }
 
     return $fields;
   }
