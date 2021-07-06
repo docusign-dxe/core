@@ -49,6 +49,15 @@ class MediaLibrarySelectForm extends FieldPluginBase {
   public function viewsForm(array &$form, FormStateInterface $form_state) {
     $form['#attributes']['class'] = ['js-media-library-views-form'];
 
+    // Add target for ajax messages.
+    $form['media_library_messages'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'id' => 'media-library-item-count',
+      ],
+      '#weight' => -10,
+    ];
+    
     // Add an attribute that identifies the media type displayed in the form.
     if (isset($this->view->args[0])) {
       $form['#attributes']['data-drupal-media-type'] = $this->view->args[0];

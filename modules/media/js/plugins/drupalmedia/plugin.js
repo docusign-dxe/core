@@ -237,7 +237,7 @@
 
           embeddedMedia.setStyle('position', 'relative');
           var editButton = CKEDITOR.dom.element.createFromHtml(Drupal.theme('mediaEmbedEditButton'));
-          embeddedMedia.getFirst().insertBeforeMe(editButton);
+          embeddedMedia.insertBeforeMe(editButton);
           var widget = this;
           this.element.findOne('.media-library-item__edit').on('click', function (event) {
             var saveCallback = function saveCallback(values) {
