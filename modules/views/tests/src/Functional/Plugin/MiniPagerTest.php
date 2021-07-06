@@ -33,6 +33,11 @@ class MiniPagerTest extends ViewTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Nodes used by the test.
    *
    * @var array

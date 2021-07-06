@@ -26,6 +26,11 @@ class UserLanguageCreationTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Functional test for language handling during user creation.
    */
   public function testLocalUserCreation() {

@@ -25,6 +25,11 @@ class CheckboxTest extends BrowserTestBase {
    */
   protected $defaultTheme = 'stark';
 
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
   public function testFormCheckbox() {
     // Ensure that the checked state is determined and rendered correctly for
     // tricky combinations of default and return values.

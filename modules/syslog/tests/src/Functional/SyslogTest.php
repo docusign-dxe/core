@@ -24,6 +24,11 @@ class SyslogTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests the syslog settings page.
    */
   public function testSettings() {

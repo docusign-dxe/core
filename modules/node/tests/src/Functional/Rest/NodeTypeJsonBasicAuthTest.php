@@ -24,6 +24,11 @@ class NodeTypeJsonBasicAuthTest extends NodeTypeResourceTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $format = 'json';
 
   /**

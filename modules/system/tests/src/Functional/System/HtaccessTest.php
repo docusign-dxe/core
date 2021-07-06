@@ -24,6 +24,11 @@ class HtaccessTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Get an array of file paths for access testing.
    *
    * @return int[]

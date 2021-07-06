@@ -23,6 +23,11 @@ class MainContentFallbackTest extends BrowserTestBase {
    */
   protected $defaultTheme = 'stark';
 
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
   protected $adminUser;
   protected $webUser;
 

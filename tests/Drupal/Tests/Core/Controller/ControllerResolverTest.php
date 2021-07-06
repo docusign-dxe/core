@@ -7,6 +7,7 @@
 
 namespace Drupal\Tests\Core\Controller;
 
+use Drupal\Core\Controller\ArgumentResolver\RawParameterValueResolver;
 use Drupal\Core\Controller\ControllerResolver;
 use Drupal\Core\DependencyInjection\ClassResolver;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
@@ -23,6 +24,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Psr\Http\Message\ServerRequestInterface;
+use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
 /**
  * @coversDefaultClass \Drupal\Core\Controller\ControllerResolver

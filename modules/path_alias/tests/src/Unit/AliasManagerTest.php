@@ -29,6 +29,13 @@ class AliasManagerTest extends UnitTestCase {
   protected $aliasRepository;
 
   /**
+   * Alias repository.
+   *
+   * @var \Drupal\path_alias\AliasRepositoryInterface|\PHPUnit\Framework\MockObject\MockObject
+   */
+  protected $aliasRepository;
+
+  /**
    * Alias whitelist.
    *
    * @var \Drupal\path_alias\AliasWhitelistInterface|\PHPUnit\Framework\MockObject\MockObject

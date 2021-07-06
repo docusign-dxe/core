@@ -25,6 +25,11 @@ class NodeAccessFieldTest extends NodeTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A user with permission to bypass access content.
    *
    * @var \Drupal\user\UserInterface

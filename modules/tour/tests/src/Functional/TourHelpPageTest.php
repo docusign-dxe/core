@@ -24,6 +24,11 @@ class TourHelpPageTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * User that can access tours and help.
    *
    * @var \Drupal\user\UserInterface

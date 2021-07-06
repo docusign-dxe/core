@@ -25,6 +25,13 @@ class FieldFile extends ProcessPluginBase implements ContainerFactoryPluginInter
   protected $migrateLookup;
 
   /**
+   * The migrate lookup service.
+   *
+   * @var \Drupal\migrate\MigrateLookupInterface
+   */
+  protected $migrateLookup;
+
+  /**
    * Constructs a FieldFile plugin instance.
    *
    * @param array $configuration
@@ -40,6 +47,15 @@ class FieldFile extends ProcessPluginBase implements ContainerFactoryPluginInter
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, MigrateLookupInterface $migrate_lookup) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+
+    if ($migrate_lookup instanceof MigrateProcessInterface) {
+      @trigger_error('Passing a migration process plugin as the fourth argument to ' . __METHOD__ . ' is deprecated in drupal:8.8.0 and will throw an error in drupal:9.0.0. Pass the migrate.lookup service instead. See https://www.drupal.org/node/3047268', E_USER_DEPRECATED);
+      $this->migrationPlugin = $migrate_lookup;
+      $migrate_lookup = \Drupal::service('migrate.lookup');
+    }
+    elseif (!$migrate_lookup instanceof MigrateLookupInterface) {
+      throw new \InvalidArgumentException("The fifth argument to " . __METHOD__ . " must be an instance of MigrateLookupInterface.");
+    }
     $this->migration = $migration;
     $this->migrateLookup = $migrate_lookup;
 

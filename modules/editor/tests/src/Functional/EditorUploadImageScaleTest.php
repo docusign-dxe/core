@@ -30,6 +30,11 @@ class EditorUploadImageScaleTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A user with permission as administer for testing.
    *
    * @var \Drupal\user\Entity\User

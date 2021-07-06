@@ -238,3 +238,21 @@ function _batch_test_finished_6($success, $results, $operations, $elapsed) {
 function _batch_test_finished_7($success, $results, $operations, $elapsed) {
   _batch_test_finished_helper(7, $success, $results, $operations, $elapsed);
 }
+
+/**
+ * Implements callback_batch_finished().
+ *
+ * Triggers 'finished' callback for batch 6.
+ */
+function _batch_test_finished_6($success, $results, $operations) {
+  _batch_test_finished_helper(6, $success, $results, $operations);
+}
+
+/**
+ * Implements callback_batch_finished().
+ *
+ * Triggers 'finished' callback for batch 7.
+ */
+function _batch_test_finished_7($success, $results, $operations) {
+  _batch_test_finished_helper(7, $success, $results, $operations);
+}

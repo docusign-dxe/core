@@ -24,6 +24,11 @@ class DrupalDateTimeTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Test setup.
    */
   protected function setUp(): void {

@@ -25,6 +25,11 @@ class ImageStyleTest extends ResourceTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $entityTypeId = 'image_style';
 
   /**

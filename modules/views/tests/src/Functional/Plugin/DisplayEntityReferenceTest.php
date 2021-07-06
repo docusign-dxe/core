@@ -40,6 +40,11 @@ class DisplayEntityReferenceTest extends ViewTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The used field name in the test.
    *
    * @var string

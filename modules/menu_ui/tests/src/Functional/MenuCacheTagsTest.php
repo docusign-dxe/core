@@ -25,6 +25,11 @@ class MenuCacheTagsTest extends PageCacheTagsTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests cache tags presence and invalidation of the Menu entity.
    *
    * Tests the following cache tags:

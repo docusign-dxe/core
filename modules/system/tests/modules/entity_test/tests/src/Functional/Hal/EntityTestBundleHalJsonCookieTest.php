@@ -25,6 +25,11 @@ class EntityTestBundleHalJsonCookieTest extends EntityTestBundleResourceTestBase
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $auth = 'cookie';
 
   /**

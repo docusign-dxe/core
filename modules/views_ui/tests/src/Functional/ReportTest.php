@@ -22,6 +22,11 @@ class ReportTest extends UITestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Stores an admin user used by the different tests.
    *
    * @var \Drupal\user\User

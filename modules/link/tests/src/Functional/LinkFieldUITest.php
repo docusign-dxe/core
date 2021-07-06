@@ -33,6 +33,11 @@ class LinkFieldUITest extends BrowserTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * A user that can edit content types.
    *
    * @var \Drupal\user\UserInterface

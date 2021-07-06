@@ -40,6 +40,11 @@ class ImageFieldDisplayTest extends ImageFieldTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * Test image formatters on node display for public files.
    */
   public function testImageFieldFormattersPublic() {

@@ -28,6 +28,11 @@ class LanguageListTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Functional tests for adding, editing and deleting languages.
    */
   public function testLanguageList() {

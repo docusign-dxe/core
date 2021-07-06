@@ -26,6 +26,11 @@ class BooleanFormatterSettingsTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The name of the entity bundle that is created in the test.
    *
    * @var string

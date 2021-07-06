@@ -29,6 +29,11 @@ class TaggedWithTest extends WizardTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Node type with an autocomplete tagging field.
    *
    * @var \Drupal\node\NodeTypeInterface

@@ -24,6 +24,11 @@ class MigrateAccessTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests that only user 1 can access the migrate UI.
    */
   public function testAccess() {

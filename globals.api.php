@@ -5,6 +5,8 @@
  * These are the global variables that Drupal uses.
  */
 
+use Drupal\Component\Utility\DeprecatedArray;
+
 /**
  * The insecure base URL of the Drupal installation.
  *

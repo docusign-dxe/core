@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\file\Unit\Plugin\migrate\process\d6;
 
+use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\file\Plugin\migrate\process\d6\FieldFile;
 use Drupal\migrate\MigrateLookupInterface;
 use Drupal\migrate\Plugin\MigrationInterface;

@@ -25,6 +25,11 @@ class ImageEffectsTest extends ToolkitTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The image effect manager.
    *
    * @var \Drupal\image\ImageEffectManager

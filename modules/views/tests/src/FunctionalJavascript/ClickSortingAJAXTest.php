@@ -27,6 +27,11 @@ class ClickSortingAJAXTest extends WebDriverTestBase {
    */
   protected $defaultTheme = 'stark';
 
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
   public static $testViews = ['test_content_ajax'];
 
   /**

@@ -31,6 +31,11 @@ class ModuleInstallBatchTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests loading entities created in a batch in test_batch_test_install().
    */
   public function testLoadingEntitiesCreatedInBatch() {

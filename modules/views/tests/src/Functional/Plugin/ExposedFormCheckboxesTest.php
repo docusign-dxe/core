@@ -35,6 +35,11 @@ class ExposedFormCheckboxesTest extends ViewTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Test terms.
    *
    * @var array

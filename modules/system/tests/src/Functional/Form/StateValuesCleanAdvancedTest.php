@@ -31,6 +31,11 @@ class StateValuesCleanAdvancedTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * An image file path for uploading.
    *
    * @var string|bool

@@ -24,6 +24,11 @@ class ThemeInfoTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The theme installer used in this test for enabling themes.
    *
    * @var \Drupal\Core\Extension\ThemeInstallerInterface

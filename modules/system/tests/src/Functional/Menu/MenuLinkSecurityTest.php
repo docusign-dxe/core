@@ -23,6 +23,11 @@ class MenuLinkSecurityTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Ensures that a menu link does not cause an XSS issue.
    */
   public function testMenuLink() {

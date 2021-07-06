@@ -29,6 +29,11 @@ class StatisticsLoggingTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * User with permissions to create and edit pages.
    *
    * @var \Drupal\user\UserInterface

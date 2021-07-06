@@ -24,6 +24,11 @@ class ConditionFormTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Submit the condition_node_type_test_form to test condition forms.
    */
   public function testConfigForm() {

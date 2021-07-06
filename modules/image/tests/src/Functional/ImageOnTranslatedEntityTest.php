@@ -28,6 +28,11 @@ class ImageOnTranslatedEntityTest extends ImageFieldTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The name of the image field used in the test.
    *
    * @var string

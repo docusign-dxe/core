@@ -26,6 +26,11 @@ class PathEncodedTest extends BrowserTestBase {
    */
   protected $defaultTheme = 'stark';
 
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
   public function testGetEncoded() {
     $route_paths = [
       'path_encoded_test.colon' => '/hi/llamma:party',

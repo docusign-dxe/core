@@ -26,6 +26,11 @@ class ElementsVerticalTabsTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A user with permission to access vertical_tab_test_tabs.
    *
    * @var \Drupal\user\UserInterface

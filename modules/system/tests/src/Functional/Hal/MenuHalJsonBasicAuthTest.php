@@ -25,6 +25,11 @@ class MenuHalJsonBasicAuthTest extends MenuResourceTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $format = 'hal_json';
 
   /**

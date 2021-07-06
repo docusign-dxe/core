@@ -29,6 +29,11 @@ class BlockContentRedirectTest extends BlockContentTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests the redirect destination when editing block content.
    */
   public function testRedirectDestination() {

@@ -1,18 +1,12 @@
 <?php
 
-namespace Drupal\Tests\Listeners;
-
-use PHPUnit\Framework\Test;
-use PHPUnit\Framework\TestListener;
-use PHPUnit\Framework\TestListenerDefaultImplementation;
-
 /**
+ * @file
  * Listens to PHPUnit test runs.
  *
- * @internal
+ * In order to manage different method signatures between PHPUnit versions, we
+ * dynamically load a class dependent on the PHPUnit runner version.
  */
-class AfterSymfonyListener implements TestListener {
-  use TestListenerDefaultImplementation;
 
   /**
    * {@inheritdoc}
@@ -21,4 +15,4 @@ class AfterSymfonyListener implements TestListener {
     restore_error_handler();
   }
 
-}
+class_alias("Drupal\TestTools\PhpUnitCompatibility\PhpUnit" . RunnerVersion::getMajor() . "\AfterSymfonyListener", AfterSymfonyListener::class);

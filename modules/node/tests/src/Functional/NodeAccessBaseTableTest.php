@@ -25,6 +25,11 @@ class NodeAccessBaseTableTest extends NodeTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The installation profile to use with this test.
    *
    * This test class requires the "tags" taxonomy field.

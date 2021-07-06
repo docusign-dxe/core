@@ -26,6 +26,11 @@ class ShortcutSetXmlBasicAuthTest extends ShortcutSetResourceTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $format = 'xml';
 
   /**

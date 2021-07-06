@@ -24,6 +24,11 @@ class BlockDemoTest extends BrowserTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * Check for the accessibility of the admin block demo page.
    */
   public function testBlockDemo() {

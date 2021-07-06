@@ -159,8 +159,8 @@ function file_build_uri($path) {
  * exploit.php_.pps.
  *
  * Specifically, this function adds an underscore to all extensions that are
- * between 2 and 5 characters in length, internal to the file name, and not
- * included in $extensions.
+ * between 2 and 5 characters in length, internal to the file name, and either
+ * included in the list of unsafe extensions, or not included in $extensions.
  *
  * Function behavior is also controlled by the configuration
  * 'system.file:allow_insecure_uploads'. If it evaluates to TRUE, no alterations
@@ -168,7 +168,8 @@ function file_build_uri($path) {
  * @param $filename
  *   File name to modify.
  * @param $extensions
- *   A space-separated list of extensions that should not be altered.
+ *   A space-separated list of extensions that should not be altered. Note that
+ *   extensions that are unsafe will be altered regardless of this parameter.
  * @param $alerts
  *   If TRUE, \Drupal::messenger()->addStatus() will be called to display
  *   a message if the file name was changed.

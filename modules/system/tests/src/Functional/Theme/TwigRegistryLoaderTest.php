@@ -25,6 +25,11 @@ class TwigRegistryLoaderTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * @var \Drupal\Core\Template\TwigEnvironment
    */
   protected $twig;

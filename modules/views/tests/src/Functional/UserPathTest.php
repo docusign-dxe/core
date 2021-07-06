@@ -20,6 +20,11 @@ class UserPathTest extends ViewTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The test views to use.
    *
    * @var array

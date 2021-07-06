@@ -28,6 +28,11 @@ class CommentFieldsTest extends CommentTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * Tests that the default 'comment_body' field is correctly added.
    */
   public function testCommentDefaultFields() {

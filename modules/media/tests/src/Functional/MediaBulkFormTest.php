@@ -25,6 +25,11 @@ class MediaBulkFormTest extends MediaFunctionalTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The test media type.
    *
    * @var \Drupal\media\MediaTypeInterface

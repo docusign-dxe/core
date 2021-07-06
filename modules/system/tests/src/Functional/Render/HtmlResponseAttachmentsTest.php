@@ -24,6 +24,11 @@ class HtmlResponseAttachmentsTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Test rendering of ['#attached'].
    */
   public function testAttachments() {

@@ -7,28 +7,51 @@ use Drupal\Component\Render\FormattableMarkup;
 /**
  * Tests filename munging and unmunging.
  *
+ * Checks performed, relying on 2 <= strlen('foo') <= 5.
+ *
+ * - testMunging()
+ *   - (name).foo.txt -> (name).foo_.txt when allows_insecure_uploads === 0
+ * - testMungeBullByte()
+ *   - (name).foo\0.txt -> (name).foo_.txt regardless of allows_insecure_uploads
+ * - testMungeIgnoreInsecure()
+ *   - (name).foo.txt unmodified when allows_insecure_uploads === 1
+ * - testMungeIgnoreAllowedExtensions()
+ *   - (name).FOO.txt -> (name).FOO when allowing 'foo'.
+ *   - (name).foo.txt -> (name).foo.txt when allowing 'FOO'.
+ * - testMungeUnsafe()
+ *   - (name).php.txt -> (name).php_.txt even when allowing 'php txt'
+ *   - (name).php.txt -> (name).php_.txt even when allowing 'php txt'
+ * - testUnMunge()
+ *   - (name).foo.txt -> (unchecked) -> (name).foo.txt after un-munging
+ *
  * @group File
  */
 class NameMungingTest extends FileTestBase {
 
   /**
+   * An extension to be used as forbidden during munge operations.
+   *
    * @var string
    */
   protected $badExtension;
 
   /**
+   * The name of a file with a bad extension, after munging.
+   *
    * @var string
    */
   protected $name;
 
   /**
+   * The name of a file with an upper-cased bad extension, after munging.
+   *
    * @var string
    */
   protected $nameWithUcExt;
 
   protected function setUp(): void {
     parent::setUp();
-    $this->badExtension = 'php';
+    $this->badExtension = 'foo';
     $this->name = $this->randomMachineName() . '.' . $this->badExtension . '.txt';
     $this->nameWithUcExt = $this->randomMachineName() . '.' . strtoupper($this->badExtension) . '.txt';
   }

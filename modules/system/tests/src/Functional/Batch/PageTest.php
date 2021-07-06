@@ -24,6 +24,11 @@ class PageTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests that the batch API progress page uses the correct theme.
    */
   public function testBatchProgressPageTheme() {

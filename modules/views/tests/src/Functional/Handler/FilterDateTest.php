@@ -37,6 +37,11 @@ class FilterDateTest extends ViewTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * The date formatter.
    *
    * @var \Drupal\Core\Datetime\DateFormatterInterface

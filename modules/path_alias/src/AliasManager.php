@@ -5,11 +5,19 @@ namespace Drupal\path_alias;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
+use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
 
 /**
  * The default alias manager implementation.
+ *
+ * @deprecated in drupal:8.8.0 and is removed from drupal:9.0.0. Use
+ *   \Drupal\path_alias\AliasManager instead.
+ *
+ * @see https://www.drupal.org/node/3092086
  */
 class AliasManager implements AliasManagerInterface {
+
+  use DeprecatedServicePropertyTrait;
 
   /**
    * The path alias repository.
@@ -108,6 +116,31 @@ class AliasManager implements AliasManagerInterface {
     $this->languageManager = $language_manager;
     $this->whitelist = $whitelist;
     $this->cache = $cache;
+
+    // This is used as base class by the new class, so we do not trigger
+    // deprecation notices when that or any child class is instantiated.
+    $new_class = 'Drupal\path_alias\AliasManager';
+    if (!is_a($this, $new_class) && class_exists($new_class)) {
+      @trigger_error('The \\' . __CLASS__ . ' class is deprecated in drupal:8.8.0 and is removed from drupal:9.0.0. Instead, use \\' . $new_class . '. See https://drupal.org/node/3092086', E_USER_DEPRECATED);
+
+      // Despite being two different services, hence two different class
+      // instances, both the new and the legacy alias managers need to share the
+      // same internal state to keep the path/alias lookup optimizations
+      // working.
+      try {
+        $alias_manager = \Drupal::service('path_alias.manager');
+        if ($alias_manager instanceof $new_class) {
+          $synced_properties = ['cacheKey', 'langcodePreloaded', 'lookupMap', 'noAlias', 'noPath', 'preloadedPathLookups'];
+          foreach ($synced_properties as $property) {
+            $this->{$property} = &$alias_manager->{$property};
+          }
+        }
+      }
+      catch (ServiceCircularReferenceException $e) {
+        // This may happen during installation when the "path_alias" module has
+        // not been installed yet. Nothing to do in this case.
+      }
+    }
   }
 
   /**

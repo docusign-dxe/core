@@ -26,6 +26,11 @@ class UserXmlBasicAuthTest extends UserResourceTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $format = 'xml';
 
   /**

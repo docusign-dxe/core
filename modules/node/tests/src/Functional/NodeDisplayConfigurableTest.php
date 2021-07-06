@@ -24,6 +24,11 @@ class NodeDisplayConfigurableTest extends NodeTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * Sets base fields to configurable display and check settings are respected.
    */
   public function testDisplayConfigurable() {

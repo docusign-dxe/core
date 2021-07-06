@@ -27,6 +27,11 @@ class NodeTitleTest extends NodeTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * A user with permission to bypass access content.
    *
    * @var \Drupal\user\UserInterface

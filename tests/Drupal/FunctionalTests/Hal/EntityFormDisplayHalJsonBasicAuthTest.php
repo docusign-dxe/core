@@ -25,6 +25,11 @@ class EntityFormDisplayHalJsonBasicAuthTest extends EntityFormDisplayResourceTes
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $format = 'hal_json';
 
   /**

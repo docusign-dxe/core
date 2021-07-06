@@ -29,6 +29,11 @@ class ForumUninstallTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests if forum module uninstallation properly deletes the field.
    */
   public function testForumUninstallWithField() {

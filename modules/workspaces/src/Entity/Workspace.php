@@ -170,6 +170,29 @@ class Workspace extends ContentEntityBase implements WorkspaceInterface {
   /**
    * {@inheritdoc}
    */
+  public function hasParent() {
+    return !$this->get('parent')->isEmpty();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function preDelete(EntityStorageInterface $storage, array $entities) {
+    parent::preDelete($storage, $entities);
+
+    $workspace_tree = \Drupal::service('workspaces.repository')->loadTree();
+
+    // Ensure that workspaces that have descendants can not be deleted.
+    foreach ($entities as $entity) {
+      if (!empty($workspace_tree[$entity->id()]['descendants'])) {
+        throw new \InvalidArgumentException("The {$entity->label()} workspace can not be deleted because it has child workspaces.");
+      }
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function postDelete(EntityStorageInterface $storage, array $entities) {
     parent::postDelete($storage, $entities);
 

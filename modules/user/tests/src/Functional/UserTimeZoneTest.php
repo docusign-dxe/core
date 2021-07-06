@@ -25,6 +25,11 @@ class UserTimeZoneTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests the display of dates and time when user-configurable time zones are set.
    */
   public function testUserTimeZone() {

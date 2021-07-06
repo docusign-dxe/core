@@ -39,6 +39,11 @@ class ImageFieldDefaultImagesTest extends ImageFieldTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests CRUD for fields and field storages with default images.
    */
   public function testDefaultImages() {

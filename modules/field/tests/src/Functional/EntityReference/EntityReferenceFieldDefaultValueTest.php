@@ -30,6 +30,11 @@ class EntityReferenceFieldDefaultValueTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A user with permission to administer content types, node fields, etc.
    *
    * @var \Drupal\user\UserInterface

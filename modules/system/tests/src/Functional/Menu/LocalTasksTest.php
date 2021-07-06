@@ -26,6 +26,11 @@ class LocalTasksTest extends BrowserTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * The local tasks block under testing.
    *
    * @var \Drupal\block\Entity\Block

@@ -24,6 +24,11 @@ class AjaxPageStateTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * User account with all available permissions
    *
    * @var \Drupal\Core\Session\AccountInterface

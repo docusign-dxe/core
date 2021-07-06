@@ -27,6 +27,11 @@ class LocaleContentTest extends BrowserTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * Verifies that machine name fields are always LTR.
    */
   public function testMachineNameLTR() {

@@ -25,6 +25,11 @@ class UserLanguageTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Test if user can change their default language.
    */
   public function testUserLanguageConfiguration() {

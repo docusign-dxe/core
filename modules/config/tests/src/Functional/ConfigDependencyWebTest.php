@@ -30,6 +30,11 @@ class ConfigDependencyWebTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests ConfigDependencyDeleteFormTrait.
    *
    * @see \Drupal\Core\Config\Entity\ConfigDependencyDeleteFormTrait

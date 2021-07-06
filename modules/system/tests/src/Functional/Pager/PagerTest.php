@@ -28,6 +28,11 @@ class PagerTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A user with permission to access site reports.
    *
    * @var \Drupal\user\UserInterface

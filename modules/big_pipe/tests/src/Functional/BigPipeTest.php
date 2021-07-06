@@ -41,6 +41,11 @@ class BigPipeTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'classy';
+
+  /**
+   * {@inheritdoc}
+   */
   protected $dumpHeaders = TRUE;
 
   /**

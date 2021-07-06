@@ -26,6 +26,11 @@ class CKEditorStylesComboAdminTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A user with the 'administer filters' permission.
    *
    * @var \Drupal\user\UserInterface

@@ -30,6 +30,11 @@ class QuickEditImageControllerTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The machine name of our image field.
    *
    * @var string

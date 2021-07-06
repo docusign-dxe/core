@@ -24,6 +24,11 @@ class ConfigEntityStatusUITest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests status operations.
    */
   public function testCRUD() {

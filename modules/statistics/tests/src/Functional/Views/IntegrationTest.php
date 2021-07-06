@@ -27,6 +27,11 @@ class IntegrationTest extends ViewTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Stores the user object that accesses the page.
    *
    * @var \Drupal\user\UserInterface

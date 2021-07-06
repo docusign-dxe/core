@@ -25,6 +25,11 @@ class ConfirmFormTest extends BrowserTestBase {
    */
   protected $defaultTheme = 'stark';
 
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
   public function testConfirmForm() {
     // Test the building of the form.
     $this->drupalGet('form-test/confirm-form');

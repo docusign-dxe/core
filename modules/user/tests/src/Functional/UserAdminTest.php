@@ -31,6 +31,11 @@ class UserAdminTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Registers a user and deletes it.
    */
   public function testUserAdmin() {

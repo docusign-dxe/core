@@ -31,6 +31,11 @@ class ContentTranslationViewsUITest extends UITestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests the views UI.
    */
   public function testViewsUI() {

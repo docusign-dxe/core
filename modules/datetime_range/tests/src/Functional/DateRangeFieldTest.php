@@ -33,6 +33,11 @@ class DateRangeFieldTest extends DateTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * The default display settings to use for the formatters.
    *
    * @var array

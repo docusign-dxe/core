@@ -3,6 +3,7 @@
 namespace Drupal\Tests\migrate_drupal\Kernel\d7;
 
 use Drupal\KernelTests\FileSystemModuleDiscoveryDataProviderTrait;
+use Drupal\Tests\DeprecatedModulesTestTrait;
 
 /**
  * Tests the getProcess() method of all Drupal 7 migrations.
@@ -18,6 +19,7 @@ class MigrationProcessTest extends MigrateDrupal7TestBase {
    */
   public function setUp(): void {
     self::$modules = array_keys($this->coreModuleListDataProvider());
+    self::$modules = $this->removeDeprecatedModules(self::$modules);
     parent::setUp();
   }
 

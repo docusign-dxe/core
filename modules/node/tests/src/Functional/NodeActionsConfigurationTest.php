@@ -25,6 +25,11 @@ class NodeActionsConfigurationTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests configuration of the node_assign_owner_action action.
    */
   public function testAssignOwnerNodeActionConfiguration() {

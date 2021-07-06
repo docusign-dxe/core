@@ -35,6 +35,18 @@ class TaxonomyAttributesTest extends TaxonomyTestBase {
   protected $baseUri;
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * URI of the front page of the Drupal site.
+   *
+   * @var string
+   */
+  protected $baseUri;
+
+  /**
    * Vocabulary created for testing purposes.
    *
    * @var \Drupal\taxonomy\VocabularyInterface

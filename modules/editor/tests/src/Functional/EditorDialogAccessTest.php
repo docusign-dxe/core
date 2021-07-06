@@ -26,6 +26,11 @@ class EditorDialogAccessTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Test access to the editor image dialog.
    */
   public function testEditorImageDialogAccess() {

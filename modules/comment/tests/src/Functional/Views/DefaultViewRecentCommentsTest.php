@@ -31,6 +31,11 @@ class DefaultViewRecentCommentsTest extends ViewTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Number of results for the Master display.
    *
    * @var int

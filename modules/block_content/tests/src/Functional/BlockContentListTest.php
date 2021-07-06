@@ -28,6 +28,11 @@ class BlockContentListTest extends BlockContentTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * Tests the custom block listing page.
    */
   public function testListing() {

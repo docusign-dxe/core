@@ -26,6 +26,12 @@ class ConfigurationTest extends BrowserTestBase {
    */
   protected $defaultTheme = 'stark';
 
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
   /**
    * Tests configuration of advanced actions through administration interface.
    */

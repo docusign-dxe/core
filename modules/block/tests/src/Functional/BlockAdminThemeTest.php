@@ -24,6 +24,11 @@ class BlockAdminThemeTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Check for the accessibility of the admin theme on the block admin page.
    */
   public function testAdminTheme() {

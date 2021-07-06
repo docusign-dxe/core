@@ -25,6 +25,11 @@ class FrontPageTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The path to a node that is created for testing.
    *
    * @var string

@@ -31,6 +31,11 @@ class MenuLinkReorderTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Test creating, editing, deleting menu links via node form widget.
    */
   public function testDefaultMenuLinkReorder() {

@@ -25,6 +25,11 @@ class MenuUninstallTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests Menu uninstall.
    */
   public function testMenuUninstall() {

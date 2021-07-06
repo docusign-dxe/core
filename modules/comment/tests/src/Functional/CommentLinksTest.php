@@ -44,6 +44,11 @@ class CommentLinksTest extends CommentTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests that comment links are output and can be hidden.
    */
   public function testCommentLinks() {

@@ -27,6 +27,11 @@ class LayoutBuilderEntityViewDisplayXmlBasicAuthTest extends LayoutBuilderEntity
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $format = 'xml';
 
   /**

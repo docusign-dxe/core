@@ -24,6 +24,11 @@ class NodeQueryAlterTest extends NodeTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * User with permission to view content.
    */
   protected $accessUser;

@@ -22,6 +22,11 @@ class AjaxCallbacksTest extends WebDriverTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests if Ajax callback works on date element.
    */
   public function testDateAjaxCallback() {

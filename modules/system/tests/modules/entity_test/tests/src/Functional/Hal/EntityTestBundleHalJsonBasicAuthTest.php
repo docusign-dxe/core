@@ -25,6 +25,11 @@ class EntityTestBundleHalJsonBasicAuthTest extends EntityTestBundleResourceTestB
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $auth = 'basic_auth';
 
   /**

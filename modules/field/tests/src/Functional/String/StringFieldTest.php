@@ -28,6 +28,11 @@ class StringFieldTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A user without any special permissions.
    *
    * @var \Drupal\user\UserInterface

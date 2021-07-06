@@ -25,6 +25,11 @@ class LocaleExportTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A user able to create languages and export translations.
    */
   protected $adminUser = NULL;

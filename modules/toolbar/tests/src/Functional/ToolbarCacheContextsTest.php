@@ -29,6 +29,11 @@ class ToolbarCacheContextsTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * An authenticated user to use for testing.
    *
    * @var \Drupal\user\UserInterface

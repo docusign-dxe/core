@@ -24,6 +24,11 @@ class RebuildTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A user for testing.
    *
    * @var \Drupal\user\UserInterface

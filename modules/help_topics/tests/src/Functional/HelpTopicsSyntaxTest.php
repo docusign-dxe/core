@@ -4,6 +4,7 @@ namespace Drupal\Tests\help_topics\Functional;
 
 use Drupal\Tests\BrowserTestBase;
 use Drupal\help_topics\HelpTopicDiscovery;
+use Drupal\Tests\DeprecatedModulesTestTrait;
 use PHPUnit\Framework\ExpectationFailedException;
 
 /**
@@ -18,6 +19,8 @@ use PHPUnit\Framework\ExpectationFailedException;
  * @group help_topics
  */
 class HelpTopicsSyntaxTest extends BrowserTestBase {
+
+  use DeprecatedModulesTestTrait;
 
   /**
    * {@inheritdoc}

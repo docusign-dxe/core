@@ -31,6 +31,11 @@ class UserCreateTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Create a user through the administration interface and ensure that it
    * displays in the user list.
    */

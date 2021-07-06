@@ -517,7 +517,7 @@ abstract class FileUploadResourceTestBase extends ResourceTestBase {
     $response = $this->fileRequest($uri, $php_string, ['Content-Disposition' => 'filename="example.php"']);
     // The filename is not munged because .txt is added and it is a known
     // extension to apache.
-    $expected = $this->getExpectedNormalizedEntity(1, 'example.php.txt', TRUE);
+    $expected = $this->getExpectedNormalizedEntity(1, 'example.php_.txt', TRUE);
     // Override the expected filesize.
     $expected['filesize'][0]['value'] = strlen($php_string);
     $this->assertResponseData($expected, $response);
@@ -531,7 +531,7 @@ abstract class FileUploadResourceTestBase extends ResourceTestBase {
     $this->refreshTestStateAfterRestConfigChange();
 
     $response = $this->fileRequest($uri, $php_string, ['Content-Disposition' => 'filename="example_2.php"']);
-    $expected = $this->getExpectedNormalizedEntity(2, 'example_2.php.txt', TRUE);
+    $expected = $this->getExpectedNormalizedEntity(2, 'example_2.php_.txt', TRUE);
     // Override the expected filesize.
     $expected['filesize'][0]['value'] = strlen($php_string);
     $this->assertResponseData($expected, $response);
@@ -564,8 +564,8 @@ abstract class FileUploadResourceTestBase extends ResourceTestBase {
     $this->field->setSetting('file_extensions', '')->save();
     $this->refreshTestStateAfterRestConfigChange();
 
-    $response = $this->fileRequest($uri, $php_string, ['Content-Disposition' => 'filename="example_4.php"']);
-    $expected = $this->getExpectedNormalizedEntity(4, 'example_4.php', TRUE);
+    $response = $this->fileRequest($uri, $php_string, ['Content-Disposition' => 'filename="example_7.php"']);
+    $expected = $this->getExpectedNormalizedEntity(7, 'example_7.php', TRUE);
     // Override the expected filesize.
     $expected['filesize'][0]['value'] = strlen($php_string);
     // The file mime should also now be PHP.

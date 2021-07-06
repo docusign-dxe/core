@@ -24,6 +24,11 @@ class RouterPermissionTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests permission requirements on routes.
    */
   public function testPermissionAccess() {

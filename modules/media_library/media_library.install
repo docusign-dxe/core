@@ -25,3 +25,14 @@ function media_library_install($is_syncing) {
 function media_library_update_last_removed() {
   return 8704;
 }
+
+/**
+ * Creates the media_library.settings config object.
+ */
+function media_library_update_8704() {
+  \Drupal::configFactory()
+    ->getEditable('media_library.settings')
+    // Enable the advanced UI by default, to preserve existing behavior.
+    ->set('advanced_ui', TRUE)
+    ->save();
+}

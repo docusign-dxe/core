@@ -61,6 +61,8 @@ class FileEntityNormalizer extends ContentEntityNormalizer {
 
   /**
    * {@inheritdoc}
+   *
+   * @deprecated in drupal:8.5.0 and is removed from drupal:9.0.0.
    */
   protected function getEntityUri(EntityInterface $entity, array $context = []) {
     assert($entity instanceof FileInterface);

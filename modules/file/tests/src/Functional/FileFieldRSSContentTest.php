@@ -24,6 +24,11 @@ class FileFieldRSSContentTest extends FileFieldTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests RSS enclosure formatter display for RSS feeds.
    */
   public function testFileFieldRSSContent() {

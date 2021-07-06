@@ -28,6 +28,11 @@ class QuickEditImageTest extends QuickEditJavascriptTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A user with permissions to edit Articles and use Quick Edit.
    *
    * @var \Drupal\user\UserInterface

@@ -30,6 +30,11 @@ class EntityTestHalJsonInternalPropertyNormalizerTest extends EntityTestHalJsonA
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected function getExpectedNormalizedEntity() {
     $default_normalization = parent::getExpectedNormalizedEntity();
 

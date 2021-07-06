@@ -25,6 +25,11 @@ class ViewsListTest extends UITestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A user with permission to administer views.
    *
    * @var \Drupal\user\Entity\User

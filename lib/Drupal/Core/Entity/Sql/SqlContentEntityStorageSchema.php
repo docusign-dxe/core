@@ -1448,6 +1448,8 @@ class SqlContentEntityStorageSchema implements DynamicallyFieldableEntityStorage
   /**
    * Processes the gathered schema for a base table.
    *
+   * This function will be removed in Drupal 9.0.x.
+   *
    * @param \Drupal\Core\Entity\ContentEntityTypeInterface $entity_type
    *   The entity type.
    * @param array $schema

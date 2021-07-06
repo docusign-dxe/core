@@ -29,6 +29,11 @@ class LocaleImportFunctionalTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A user able to create languages and import translations.
    *
    * @var \Drupal\user\Entity\User

@@ -146,8 +146,6 @@ class ContentEntityNormalizer extends NormalizerBase {
           break;
         }
       }
-      // Remove the default langcode so it does not get iterated over below.
-      unset($data[$default_langcode_key]);
     }
 
     if ($entity_type->hasKey('bundle')) {

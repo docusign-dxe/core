@@ -25,6 +25,11 @@ class ThemeEarlyInitializationTest extends BrowserTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * Test that the theme system can generate output in a request listener.
    */
   public function testRequestListener() {

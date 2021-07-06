@@ -24,6 +24,11 @@ class RestResourceConfigJsonBasicAuthTest extends RestResourceConfigResourceTest
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $format = 'json';
 
   /**

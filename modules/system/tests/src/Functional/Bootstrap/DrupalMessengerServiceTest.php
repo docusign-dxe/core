@@ -25,6 +25,11 @@ class DrupalMessengerServiceTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests Messenger service.
    */
   public function testDrupalMessengerService() {

@@ -26,6 +26,11 @@ class UserBlocksTest extends BrowserTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * A user with the 'administer blocks' permission.
    *
    * @var \Drupal\user\UserInterface

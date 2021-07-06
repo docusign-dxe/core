@@ -5,6 +5,7 @@ namespace Drupal\media_library\Form;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CloseDialogCommand;
 use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\Core\Ajax\MessageCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\EntityStorageInterface;
@@ -699,11 +700,29 @@ abstract class AddFormBase extends FormBase implements BaseFormIdInterface, Trus
       return $media->id();
     }, $this->getAddedMediaItems($form_state));
 
+    if ($current_selection = $form_state->getValue('current_selection')) {
+      $current_selection = $current_selection . ',' . implode(',', $media_ids);
+    }
+    else {
+      $current_selection = implode(',', $media_ids);
+    }
+
     $response = new AjaxResponse();
     $response->addCommand(new UpdateSelectionCommand($media_ids));
     $media_id_to_focus = array_pop($media_ids);
     $response->addCommand(new ReplaceCommand('#media-library-add-form-wrapper', $this->buildMediaLibraryUi($form_state)));
     $response->addCommand(new InvokeCommand("#media-library-content [value=$media_id_to_focus]", 'focus'));
+
+    $available_slots = $this->getMediaLibraryState($form_state)->getAvailableSlots();
+    $selected_count = count(explode(',', $current_selection));
+    if ($available_slots > 0 && $selected_count > $available_slots) {
+      $warning = $this->formatPlural($selected_count - $available_slots, 'There are currently @total items selected, but the maximum number of remaining items for the field is @max. Please remove @count item from the selection.', 'There are currently @total items selected. The maximum number of remaining items for the field is @max. Please remove @count items from the selection.', [
+        '@total' => $selected_count,
+        '@max' => $available_slots,
+      ]);
+      $response->addCommand(new MessageCommand($warning, '#media-library-item-count', ['type' => 'warning']));
+    }
+
     return $response;
   }
 
@@ -749,14 +768,30 @@ abstract class AddFormBase extends FormBase implements BaseFormIdInterface, Trus
     // The added media items get an ID when they are saved in ::submitForm().
     // For that reason the added media items are keyed by delta in the form
     // state and we have to do an array map to get each media ID.
-    $current_media_ids = array_map(function (MediaInterface $media) {
+    $media_ids = array_map(function (MediaInterface $media) {
       return $media->id();
     }, $this->getCurrentMediaItems($form_state));
 
     // Allow the opener service to respond to the selection.
     $state = $this->getMediaLibraryState($form_state);
+
+
+    if ($current_selection = $form_state->getValue('current_selection')) {
+      $current_selection = $current_selection . ',' . implode(',', $media_ids);
+    }
+    else {
+      $current_selection = implode(',', $media_ids);
+    }
+
+    $available_slots = $this->getMediaLibraryState($form_state)->getAvailableSlots();
+    $selected_count = count(explode(',', $current_selection));
+    if ($available_slots > 0 && $selected_count > $available_slots) {
+      // Return to library where we display a warning about the overage.
+      return $this->updateLibrary($form, $form_state);
+    }
+
     return $this->openerResolver->get($state)
-      ->getSelectionResponse($state, $current_media_ids)
+      ->getSelectionResponse($state, $media_ids)
       ->addCommand(new CloseDialogCommand());
   }
 

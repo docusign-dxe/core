@@ -26,6 +26,11 @@ class CKEditorLoadingTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * An untrusted user with access to only the 'plain_text' format.
    *
    * @var \Drupal\user\UserInterface

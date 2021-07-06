@@ -27,6 +27,11 @@ class ForumBlockTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A user with various administrative privileges.
    */
   protected $adminUser;

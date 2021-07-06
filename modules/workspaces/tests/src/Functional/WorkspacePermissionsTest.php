@@ -25,6 +25,11 @@ class WorkspacePermissionsTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Verifies that a user can create but not edit a workspace.
    */
   public function testCreateWorkspace() {

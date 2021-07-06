@@ -34,6 +34,11 @@ class BookRelationshipTest extends ViewTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A book node.
    *
    * @var object

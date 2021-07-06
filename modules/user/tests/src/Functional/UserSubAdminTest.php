@@ -22,6 +22,11 @@ class UserSubAdminTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Test create and cancel forms as 'sub-admin'.
    */
   public function testSubAdmin() {

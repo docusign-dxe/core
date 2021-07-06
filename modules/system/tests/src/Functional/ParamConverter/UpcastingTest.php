@@ -20,6 +20,11 @@ class UpcastingTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Confirms that all parameters are converted as expected.
    *
    * All of these requests end up being processed by a controller with the

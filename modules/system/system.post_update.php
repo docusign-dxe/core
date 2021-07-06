@@ -147,3 +147,29 @@ function system_post_update_uninstall_stable() {
     // depending on it.
   }
 }
+
+/**
+ * Populate the new 'match_limit' setting for the ER autocomplete widget.
+ */
+function system_post_update_entity_reference_autocomplete_match_limit(&$sandbox = NULL) {
+  $config_entity_updater = \Drupal::classResolver(ConfigEntityUpdater::class);
+  /** @var \Drupal\Core\Field\WidgetPluginManager $field_widget_manager */
+  $field_widget_manager = \Drupal::service('plugin.manager.field.widget');
+
+  $callback = function (EntityDisplayInterface $display) use ($field_widget_manager) {
+    foreach ($display->getComponents() as $field_name => $component) {
+      if (empty($component['type'])) {
+        continue;
+      }
+
+      $plugin_definition = $field_widget_manager->getDefinition($component['type'], FALSE);
+      if (is_a($plugin_definition['class'], EntityReferenceAutocompleteWidget::class, TRUE)) {
+        return TRUE;
+      }
+    }
+
+    return FALSE;
+  };
+
+  $config_entity_updater->update($sandbox, 'entity_form_display', $callback);
+}

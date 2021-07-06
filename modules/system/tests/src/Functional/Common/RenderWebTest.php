@@ -29,6 +29,11 @@ class RenderWebTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Asserts the cache context for the wrapper format is always present.
    */
   public function testWrapperFormatCacheContext() {

@@ -31,6 +31,11 @@ class NodeTypeTest extends NodeTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * Ensures that node type functions (node_type_get_*) work correctly.
    *
    * Load available node types and validate the returned data.

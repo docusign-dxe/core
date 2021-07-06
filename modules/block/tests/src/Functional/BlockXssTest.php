@@ -29,6 +29,11 @@ class BlockXssTest extends BrowserTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * Tests that nothing is escaped other than the blocks explicitly tested.
    */
   public function testNoUnexpectedEscaping() {

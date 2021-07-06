@@ -153,10 +153,22 @@ class FileUploadForm extends AddFormBase {
       // @todo Move validation in https://www.drupal.org/node/2988215
       '#process' => array_merge(['::validateUploadElement'], $process, ['::processUploadElement']),
       '#upload_validators' => $item->getUploadValidators(),
-      '#multiple' => $slots > 1 || $slots === FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED,
-      '#cardinality' => $slots,
+      '#multiple' => TRUE,
+      // Do not limit the number uploaded.  There is validation based on the
+      // number selected in the media library that prevents overages.
+      '#cardinality' => -1,
       '#remaining_slots' => $slots,
     ];
+
+    // Add upload resolution validation if file is an image.
+    $fieldSettings = $item->getFieldDefinition()->getSettings();
+    if ($fieldSettings['max_resolution'] || $fieldSettings['min_resolution']) {
+      $form['container']['upload']['#upload_validators']['file_validate_is_image'] = [];
+      $form['container']['upload']['#upload_validators']['file_validate_image_resolution'] = [
+        $fieldSettings['max_resolution'],
+        $fieldSettings['min_resolution'],
+      ];
+    }
 
     $file_upload_help = [
       '#theme' => 'file_upload_help',

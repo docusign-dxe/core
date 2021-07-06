@@ -25,6 +25,11 @@ class UserBatchActionTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests user admin batch.
    */
   public function testUserAction() {

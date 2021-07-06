@@ -28,6 +28,11 @@ class EditorLoadingTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * An untrusted user, with access to the 'plain_text' format.
    *
    * @var \Drupal\user\UserInterface

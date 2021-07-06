@@ -35,6 +35,11 @@ class GlossaryViewTest extends WebDriverTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * @var array
    * The test Views to enable.
    */

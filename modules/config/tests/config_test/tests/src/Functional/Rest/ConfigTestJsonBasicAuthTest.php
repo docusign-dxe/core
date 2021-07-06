@@ -24,6 +24,11 @@ class ConfigTestJsonBasicAuthTest extends ConfigTestResourceTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $format = 'json';
 
   /**

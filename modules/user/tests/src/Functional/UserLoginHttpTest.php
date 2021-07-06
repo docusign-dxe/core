@@ -38,6 +38,11 @@ class UserLoginHttpTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The cookie jar.
    *
    * @var \GuzzleHttp\Cookie\CookieJar

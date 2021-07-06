@@ -25,6 +25,11 @@ class EntityAddUITest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests the add page for an entity type using bundle entities.
    */
   public function testAddPageWithBundleEntities() {

@@ -7,9 +7,11 @@ use PHPUnit\Framework\TestListenerDefaultImplementation;
 use PHPUnit\Framework\Test;
 
 /**
+ * @file
  * Listens to PHPUnit test runs.
  *
- * @internal
+ * In order to manage different method signatures between PHPUnit versions, we
+ * dynamically load a class dependent on the PHPUnit runner version.
  */
 class DrupalListener implements TestListener {
 
@@ -34,4 +36,4 @@ class DrupalListener implements TestListener {
     $this->standardsEndTest($test, $time);
   }
 
-}
+class_alias("Drupal\TestTools\PhpUnitCompatibility\PhpUnit" . RunnerVersion::getMajor() . "\DrupalListener", DrupalListener::class);

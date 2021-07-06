@@ -25,6 +25,11 @@ class FieldAccessTest extends FieldTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Node entity to use in this test.
    *
    * @var \Drupal\node\Entity\Node

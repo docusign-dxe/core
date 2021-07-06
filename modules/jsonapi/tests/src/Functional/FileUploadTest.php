@@ -34,6 +34,11 @@ class FileUploadTest extends ResourceTestBase {
 
   /**
    * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
    *
    * @see $entity
    */
@@ -621,7 +626,7 @@ class FileUploadTest extends ResourceTestBase {
     $response = $this->fileRequest($uri, $php_string, ['Content-Disposition' => 'filename="example.php"']);
     // The filename is not munged because .txt is added and it is a known
     // extension to apache.
-    $expected = $this->getExpectedDocument(1, 'example.php.txt', TRUE);
+    $expected = $this->getExpectedDocument(1, 'example.php_.txt', TRUE);
     // Override the expected filesize.
     $expected['data']['attributes']['filesize'] = strlen($php_string);
     $this->assertResponseData($expected, $response);
@@ -635,7 +640,7 @@ class FileUploadTest extends ResourceTestBase {
     $this->rebuildAll();
 
     $response = $this->fileRequest($uri, $php_string, ['Content-Disposition' => 'filename="example_2.php"']);
-    $expected = $this->getExpectedDocument(2, 'example_2.php.txt', TRUE);
+    $expected = $this->getExpectedDocument(2, 'example_2.php_.txt', TRUE);
     // Override the expected filesize.
     $expected['data']['attributes']['filesize'] = strlen($php_string);
     $this->assertResponseData($expected, $response);
@@ -668,8 +673,8 @@ class FileUploadTest extends ResourceTestBase {
     $this->field->setSetting('file_extensions', '')->save();
     $this->rebuildAll();
 
-    $response = $this->fileRequest($uri, $php_string, ['Content-Disposition' => 'filename="example_4.php"']);
-    $expected = $this->getExpectedDocument(4, 'example_4.php', TRUE);
+    $response = $this->fileRequest($uri, $php_string, ['Content-Disposition' => 'filename="example_7.php"']);
+    $expected = $this->getExpectedDocument(7, 'example_7.php', TRUE);
     // Override the expected filesize.
     $expected['data']['attributes']['filesize'] = strlen($php_string);
     // The file mime should also now be PHP.

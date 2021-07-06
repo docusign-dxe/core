@@ -153,4 +153,17 @@ class ConnectionTest extends DatabaseTestBase {
     $this->assertSame($namespace, get_class($condition));
   }
 
+  /**
+   * Test that the method ::condition() returns a Condition object.
+   */
+  public function testCondition() {
+    $connection = Database::getConnection('default', 'default');
+    $namespace = (new \ReflectionObject($connection))->getNamespaceName() . "\\Condition";
+    if (!class_exists($namespace)) {
+      $namespace = Condition::class;
+    }
+    $condition = $connection->condition('AND');
+    $this->assertSame($namespace, get_class($condition));
+  }
+
 }

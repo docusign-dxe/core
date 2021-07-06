@@ -31,6 +31,11 @@ class DisplayCRUDTest extends UITestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests adding a display.
    */
   public function testAddDisplay() {

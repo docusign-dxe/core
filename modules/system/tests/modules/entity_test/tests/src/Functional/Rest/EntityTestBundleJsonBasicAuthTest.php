@@ -24,6 +24,11 @@ class EntityTestBundleJsonBasicAuthTest extends EntityTestBundleResourceTestBase
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $format = 'json';
 
   /**

@@ -29,6 +29,11 @@ class BlockContentCreationTest extends BlockContentTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * Permissions to grant admin user.
    *
    * @var array

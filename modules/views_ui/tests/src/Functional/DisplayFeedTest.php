@@ -30,6 +30,11 @@ class DisplayFeedTest extends UITestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests feed display admin UI.
    */
   public function testFeedUI() {

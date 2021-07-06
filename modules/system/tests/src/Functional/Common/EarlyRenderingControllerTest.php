@@ -28,6 +28,11 @@ class EarlyRenderingControllerTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests theme preprocess functions being able to attach assets.
    */
   public function testEarlyRendering() {

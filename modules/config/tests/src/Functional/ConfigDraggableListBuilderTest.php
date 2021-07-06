@@ -23,6 +23,11 @@ class ConfigDraggableListBuilderTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Test draggable lists.
    */
   public function testDraggableList() {

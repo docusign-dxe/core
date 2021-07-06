@@ -31,6 +31,11 @@ class ConfigImportInstallProfileTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A user with the 'synchronize configuration' permission.
    *
    * @var \Drupal\user\UserInterface

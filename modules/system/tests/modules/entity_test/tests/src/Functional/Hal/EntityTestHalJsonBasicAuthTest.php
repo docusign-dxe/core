@@ -24,6 +24,11 @@ class EntityTestHalJsonBasicAuthTest extends EntityTestHalJsonAnonTest {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $auth = 'basic_auth';
 
 }

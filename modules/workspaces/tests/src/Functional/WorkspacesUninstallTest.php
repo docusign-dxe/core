@@ -27,6 +27,11 @@ class WorkspacesUninstallTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests deleting workspace entities and uninstalling Workspaces module.
    */
   public function testUninstallingWorkspace() {
@@ -48,6 +53,8 @@ class WorkspacesUninstallTest extends BrowserTestBase {
     $entity_type = \Drupal::entityDefinitionUpdateManager()->getEntityType('node');
     $revision_metadata_keys = $entity_type->get('revision_metadata_keys');
     $this->assertArrayNotHasKey('workspace', $revision_metadata_keys);
+    $required_revision_metadata_keys = $entity_type->get('requiredRevisionMetadataKeys');
+    $this->assertArrayNotHasKey('workspace', $required_revision_metadata_keys);
   }
 
 }

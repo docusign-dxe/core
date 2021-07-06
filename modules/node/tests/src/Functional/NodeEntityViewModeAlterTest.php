@@ -25,6 +25,11 @@ class NodeEntityViewModeAlterTest extends NodeTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Create a "Basic page" node and verify its consistency in the database.
    */
   public function testNodeViewModeChange() {

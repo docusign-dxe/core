@@ -25,6 +25,11 @@ class NodeTypeHalJsonCookieTest extends NodeTypeResourceTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $format = 'hal_json';
 
   /**

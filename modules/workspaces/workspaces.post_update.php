@@ -35,3 +35,31 @@ function workspaces_removed_post_updates() {
     'workspaces_post_update_update_deploy_form_display' => '9.0.0',
   ];
 }
+
+/**
+ * Add the workspace 'parent' field to the 'deploy' form display.
+ */
+function workspaces_post_update_update_deploy_form_display() {
+  if ($form_display = EntityFormDisplay::load('workspace.workspace.deploy')) {
+    $form_display->removeComponent('parent')->save();
+  }
+}
+
+/**
+ * Removes the workspace association entity and field schema data.
+ */
+function workspaces_post_update_remove_association_schema_data() {
+  // Delete the entity and field schema data.
+  $keys = [
+    'workspace_association.entity_schema_data',
+    'workspace_association.field_schema_data.id',
+    'workspace_association.field_schema_data.revision_id',
+    'workspace_association.field_schema_data.uuid',
+    'workspace_association.field_schema_data.revision_default',
+    'workspace_association.field_schema_data.target_entity_id',
+    'workspace_association.field_schema_data.target_entity_revision_id',
+    'workspace_association.field_schema_data.target_entity_type_id',
+    'workspace_association.field_schema_data.workspace',
+  ];
+  \Drupal::keyValue('entity.storage_schema.sql')->deleteMultiple($keys);
+}

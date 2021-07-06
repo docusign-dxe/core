@@ -26,6 +26,11 @@ class FileListingTest extends FileFieldTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * An authenticated user.
    *
    * @var \Drupal\user\UserInterface

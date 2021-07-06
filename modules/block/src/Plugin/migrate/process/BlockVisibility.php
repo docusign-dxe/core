@@ -34,6 +34,13 @@ class BlockVisibility extends ProcessPluginBase implements ContainerFactoryPlugi
   protected $migrateLookup;
 
   /**
+   * The migrate lookup service.
+   *
+   * @var \Drupal\migrate\MigrateLookupInterface
+   */
+  protected $migrateLookup;
+
+  /**
    * Whether or not to skip blocks that use PHP for visibility. Only applies
    * if the PHP module is not enabled.
    *
@@ -58,6 +65,14 @@ class BlockVisibility extends ProcessPluginBase implements ContainerFactoryPlugi
   // @codingStandardsIgnoreLine
   public function __construct(array $configuration, $plugin_id, $plugin_definition, ModuleHandlerInterface $module_handler, MigrateLookupInterface $migrate_lookup) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+    if ($migrate_lookup instanceof MigrateProcessInterface) {
+      @trigger_error('Passing a migration process plugin as the fifth argument to ' . __METHOD__ . ' is deprecated in drupal:8.8.0 and will throw an error in drupal:9.0.0. Pass the migrate.lookup service instead. See https://www.drupal.org/node/3047268', E_USER_DEPRECATED);
+      $this->migrationPlugin = $migrate_lookup;
+      $migrate_lookup = \Drupal::service('migrate.lookup');
+    }
+    elseif (!$migrate_lookup instanceof MigrateLookupInterface) {
+      throw new \InvalidArgumentException("The fifth argument to " . __METHOD__ . " must be an instance of MigrateLookupInterface.");
+    }
     $this->moduleHandler = $module_handler;
     $this->migrateLookup = $migrate_lookup;
 

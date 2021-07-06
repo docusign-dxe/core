@@ -25,6 +25,11 @@ class ProcessingTest extends BrowserTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * Tests batches triggered outside of form submission.
    */
   public function testBatchNoForm() {
@@ -350,6 +355,16 @@ class ProcessingTest extends BrowserTestBase {
 
       case 'batch_7':
         $messages[] = 'results for batch 7' . $pattern_elapsed . '<div class="item-list"><ul><li>op 7: processed 10 elements</li></ul></div>';
+        $messages = array_merge($messages, $this->_resultMessages('batch_6'));
+        $messages = array_merge($messages, $this->_resultMessages('batch_5'));
+        break;
+
+      case 'batch_6':
+        $messages[] = 'results for batch 6<div class="item-list"><ul><li>op 6: processed 10 elements</li></ul></div>';
+        break;
+
+      case 'batch_7':
+        $messages[] = 'results for batch 7<div class="item-list"><ul><li>op 7: processed 10 elements</li></ul></div>';
         $messages = array_merge($messages, $this->_resultMessages('batch_6'));
         $messages = array_merge($messages, $this->_resultMessages('batch_5'));
         break;

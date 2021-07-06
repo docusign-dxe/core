@@ -29,6 +29,11 @@ class LanguageSelectElementTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests that the options printed by the language select element are correct.
    */
   public function testLanguageSelectElementOptions() {

@@ -25,6 +25,11 @@ class BlockLanguageCacheTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * List of langcodes.
    *
    * @var array

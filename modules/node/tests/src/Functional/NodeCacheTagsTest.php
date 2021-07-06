@@ -27,6 +27,11 @@ class NodeCacheTagsTest extends EntityWithUriCacheTagsTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected function createEntity() {
     // Create a "Camelids" node type.
     NodeType::create([

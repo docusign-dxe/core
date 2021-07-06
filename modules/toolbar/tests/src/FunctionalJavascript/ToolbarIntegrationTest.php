@@ -22,6 +22,11 @@ class ToolbarIntegrationTest extends WebDriverTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests if the toolbar can be toggled with JavaScript.
    */
   public function testToolbarToggling() {

@@ -30,6 +30,11 @@ class CommentNewIndicatorTest extends CommentTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Get node "x new comments" metadata from the server for the current user.
    *
    * @param array $node_ids

@@ -28,6 +28,11 @@ class UpdatesWith7xTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The URL for the update page.
    *
    * @var string

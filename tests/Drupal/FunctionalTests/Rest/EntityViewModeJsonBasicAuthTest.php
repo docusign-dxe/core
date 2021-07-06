@@ -24,6 +24,11 @@ class EntityViewModeJsonBasicAuthTest extends EntityViewModeResourceTestBase {
   /**
    * {@inheritdoc}
    */
+  protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
   protected static $format = 'json';
 
   /**

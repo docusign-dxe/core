@@ -34,6 +34,11 @@ class ImageStylesPathAndUrlTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The image style.
    *
    * @var \Drupal\image\ImageStyleInterface

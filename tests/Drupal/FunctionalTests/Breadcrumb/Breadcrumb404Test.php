@@ -25,6 +25,11 @@ class Breadcrumb404Test extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests that different 404s don't create unnecessary cache entries.
    */
   public function testBreadcrumbOn404Pages() {

@@ -25,6 +25,11 @@ class EntityReferenceFileUploadTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The name of a content type that will reference $referencedType.
    *
    * @var string

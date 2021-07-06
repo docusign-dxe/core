@@ -27,6 +27,11 @@ class TranslationWebTest extends FieldTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The name of the field to use in this test.
    *
    * @var string

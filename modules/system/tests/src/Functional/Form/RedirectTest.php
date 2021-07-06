@@ -25,6 +25,11 @@ class RedirectTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests form redirection.
    */
   public function testRedirect() {

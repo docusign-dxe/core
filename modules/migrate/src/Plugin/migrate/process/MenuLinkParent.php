@@ -44,6 +44,20 @@ class MenuLinkParent extends ProcessPluginBase implements ContainerFactoryPlugin
   protected $migrateLookup;
 
   /**
+   * The currently running migration.
+   *
+   * @var \Drupal\migrate\Plugin\MigrationInterface
+   */
+  protected $migration;
+
+  /**
+   * The migrate lookup service.
+   *
+   * @var \Drupal\migrate\MigrateLookupInterface
+   */
+  protected $migrateLookup;
+
+  /**
    * @var \Drupal\Core\Entity\EntityStorageInterface
    */
   protected $menuLinkStorage;

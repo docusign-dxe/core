@@ -25,6 +25,11 @@ class EmailTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests that #type 'email' fields are properly validated.
    */
   public function testFormEmail() {

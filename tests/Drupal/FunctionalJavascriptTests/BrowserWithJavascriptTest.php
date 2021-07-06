@@ -24,6 +24,11 @@ class BrowserWithJavascriptTest extends WebDriverTestBase {
    */
   protected $defaultTheme = 'stark';
 
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
   public function testJavascript() {
     $this->drupalGet('<front>');
     $session = $this->getSession();

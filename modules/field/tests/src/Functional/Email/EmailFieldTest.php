@@ -27,6 +27,11 @@ class EmailFieldTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * A field storage to use in this test class.
    *
    * @var \Drupal\field\Entity\FieldStorageConfig

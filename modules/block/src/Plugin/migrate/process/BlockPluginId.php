@@ -26,6 +26,13 @@ class BlockPluginId extends ProcessPluginBase implements ContainerFactoryPluginI
   protected $migrateLookup;
 
   /**
+   * The migrate lookup service.
+   *
+   * @var \Drupal\migrate\MigrateLookupInterface
+   */
+  protected $migrateLookup;
+
+  /**
    * The block_content entity storage handler.
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
@@ -48,6 +55,14 @@ class BlockPluginId extends ProcessPluginBase implements ContainerFactoryPluginI
    */
   public function __construct(array $configuration, $plugin_id, array $plugin_definition, EntityStorageInterface $storage, MigrateLookupInterface $migrate_lookup) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+    if ($migrate_lookup instanceof MigrateProcessInterface) {
+      @trigger_error('Passing a migration process plugin as the fifth argument to ' . __METHOD__ . ' is deprecated in drupal:8.8.0 and will throw an error in drupal:9.0.0. Pass the migrate.lookup service instead. See https://www.drupal.org/node/3047268', E_USER_DEPRECATED);
+      $this->migrationPlugin = $migrate_lookup;
+      $migrate_lookup = \Drupal::service('migrate.lookup');
+    }
+    elseif (!$migrate_lookup instanceof MigrateLookupInterface) {
+      throw new \InvalidArgumentException("The fifth argument to " . __METHOD__ . " must be an instance of MigrateLookupInterface.");
+    }
     $this->blockContentStorage = $storage;
     $this->migrateLookup = $migrate_lookup;
   }

@@ -27,6 +27,11 @@ class QuickEditIntegrationLoadingTest extends BrowserTestBase {
   protected $defaultTheme = 'classy';
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * The basic permissions necessary to view content and use in-place editing.
    *
    * @var array
