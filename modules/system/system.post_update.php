@@ -149,27 +149,22 @@ function system_post_update_uninstall_stable() {
 }
 
 /**
- * Populate the new 'match_limit' setting for the ER autocomplete widget.
+ * Clear caches due to trustedCallbacks changing in ClaroPreRender.
  */
-function system_post_update_entity_reference_autocomplete_match_limit(&$sandbox = NULL) {
-  $config_entity_updater = \Drupal::classResolver(ConfigEntityUpdater::class);
-  /** @var \Drupal\Core\Field\WidgetPluginManager $field_widget_manager */
-  $field_widget_manager = \Drupal::service('plugin.manager.field.widget');
+function system_post_update_claro_dropbutton_variants() {
+  // Empty post-update hook.
+}
 
-  $callback = function (EntityDisplayInterface $display) use ($field_widget_manager) {
-    foreach ($display->getComponents() as $field_name => $component) {
-      if (empty($component['type'])) {
-        continue;
-      }
-
-      $plugin_definition = $field_widget_manager->getDefinition($component['type'], FALSE);
-      if (is_a($plugin_definition['class'], EntityReferenceAutocompleteWidget::class, TRUE)) {
-        return TRUE;
-      }
+/**
+ * Update schema version to integers.
+ *
+ * @see https://www.drupal.org/project/drupal/issues/3143713
+ */
+function system_post_update_schema_version_int() {
+  $registry = \Drupal::keyValue('system.schema');
+  foreach ($registry->getAll() as $name => $schema) {
+    if (is_string($schema)) {
+      $registry->set($name, (int) $schema);
     }
-
-    return FALSE;
-  };
-
-  $config_entity_updater->update($sandbox, 'entity_form_display', $callback);
+  }
 }

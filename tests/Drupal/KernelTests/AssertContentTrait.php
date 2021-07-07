@@ -292,14 +292,15 @@ trait AssertContentTrait {
    *   this default.
    *
    * @return bool
-   *   TRUE if the assertion succeeded, FALSE otherwise.
+   *   TRUE if the assertion succeeded.
    */
   protected function assertLink($label, $index = 0, $message = '', $group = 'Other') {
     // Cast MarkupInterface objects to string.
     $label = (string) $label;
     $links = $this->xpath('//a[normalize-space(text())=:label]', [':label' => $label]);
     $message = ($message ? $message : strtr('Link with label %label found.', ['%label' => $label]));
-    return $this->assert(isset($links[$index]), $message, $group);
+    $this->assertArrayHasKey($index, $links, $message);
+    return TRUE;
   }
 
   /**
@@ -319,14 +320,15 @@ trait AssertContentTrait {
    *   this default.
    *
    * @return bool
-   *   TRUE if the assertion succeeded, FALSE otherwise.
+   *   TRUE if the assertion succeeded.
    */
   protected function assertNoLink($label, $message = '', $group = 'Other') {
     // Cast MarkupInterface objects to string.
     $label = (string) $label;
     $links = $this->xpath('//a[normalize-space(text())=:label]', [':label' => $label]);
     $message = ($message ? $message : new FormattableMarkup('Link with label %label not found.', ['%label' => $label]));
-    return $this->assert(empty($links), $message, $group);
+    $this->assertEmpty($links, $message);
+    return TRUE;
   }
 
   /**
@@ -348,12 +350,13 @@ trait AssertContentTrait {
    *   this default.
    *
    * @return bool
-   *   TRUE if the assertion succeeded, FALSE otherwise.
+   *   TRUE if the assertion succeeded.
    */
   protected function assertLinkByHref($href, $index = 0, $message = '', $group = 'Other') {
     $links = $this->xpath('//a[contains(@href, :href)]', [':href' => $href]);
     $message = ($message ? $message : new FormattableMarkup('Link containing href %href found.', ['%href' => $href]));
-    return $this->assert(isset($links[$index]), $message, $group);
+    $this->assertArrayHasKey($index, $links, $message);
+    return TRUE;
   }
 
   /**
@@ -373,12 +376,13 @@ trait AssertContentTrait {
    *   this default.
    *
    * @return bool
-   *   TRUE if the assertion succeeded, FALSE otherwise.
+   *   TRUE if the assertion succeeded.
    */
   protected function assertNoLinkByHref($href, $message = '', $group = 'Other') {
     $links = $this->xpath('//a[contains(@href, :href)]', [':href' => $href]);
     $message = ($message ? $message : new FormattableMarkup('No link containing href %href found.', ['%href' => $href]));
-    return $this->assert(empty($links), $message, $group);
+    $this->assertEmpty($links, $message);
+    return TRUE;
   }
 
   /**
@@ -398,12 +402,13 @@ trait AssertContentTrait {
    *   this default.
    *
    * @return bool
-   *   TRUE if the assertion succeeded, FALSE otherwise.
+   *   TRUE if the assertion succeeded.
    */
   protected function assertNoLinkByHrefInMainRegion($href, $message = '', $group = 'Other') {
     $links = $this->xpath('//main//a[contains(@href, :href)]', [':href' => $href]);
     $message = ($message ? $message : new FormattableMarkup('No link containing href %href found.', ['%href' => $href]));
-    return $this->assert(empty($links), $message, $group);
+    $this->assertEmpty($links, $message);
+    return TRUE;
   }
 
   /**
@@ -687,7 +692,7 @@ trait AssertContentTrait {
    *   should be found more than once. Defaults to FALSE.
    *
    * @return bool
-   *   TRUE on pass, FALSE on fail.
+   *   TRUE on pass.
    */
   protected function assertUniqueTextHelper($text, $message = '', $group = 'Other', $be_unique = FALSE) {
     // Cast MarkupInterface objects to string.
@@ -697,11 +702,12 @@ trait AssertContentTrait {
     }
     $first_occurrence = strpos($this->getTextContent(), $text);
     if ($first_occurrence === FALSE) {
-      return $this->assert(FALSE, $message, $group);
+      $this->fail($message);
     }
     $offset = $first_occurrence + strlen($text);
     $second_occurrence = strpos($this->getTextContent(), $text, $offset);
-    return $this->assert($be_unique == ($second_occurrence === FALSE), $message, $group);
+    $this->assertEquals($be_unique, $second_occurrence === FALSE, $message);
+    return TRUE;
   }
 
   /**
@@ -721,13 +727,14 @@ trait AssertContentTrait {
    *   this default.
    *
    * @return bool
-   *   TRUE on pass, FALSE on fail.
+   *   TRUE on pass.
    */
   protected function assertPattern($pattern, $message = '', $group = 'Other') {
     if (!$message) {
       $message = new FormattableMarkup('Pattern "@pattern" found', ['@pattern' => $pattern]);
     }
-    return $this->assert((bool) preg_match($pattern, $this->getRawContent()), $message, $group);
+    $this->assertRegExp($pattern, $this->getRawContent(), $message);
+    return TRUE;
   }
 
   /**
@@ -747,13 +754,14 @@ trait AssertContentTrait {
    *   this default.
    *
    * @return bool
-   *   TRUE on pass, FALSE on fail.
+   *   TRUE on pass.
    */
   protected function assertNoPattern($pattern, $message = '', $group = 'Other') {
     if (!$message) {
       $message = new FormattableMarkup('Pattern "@pattern" not found', ['@pattern' => $pattern]);
     }
-    return $this->assert(!preg_match($pattern, $this->getRawContent()), $message, $group);
+    $this->assertNotRegExp($pattern, $this->getRawContent(), $message);
+    return TRUE;
   }
 
   /**
@@ -770,13 +778,14 @@ trait AssertContentTrait {
    *   this default.
    *
    * @return bool
-   *   TRUE on pass, FALSE on failure.
+   *   TRUE on pass.
    */
   protected function assertTextPattern($pattern, $message = NULL, $group = 'Other') {
     if (!isset($message)) {
       $message = new FormattableMarkup('Pattern "@pattern" found', ['@pattern' => $pattern]);
     }
-    return $this->assert((bool) preg_match($pattern, $this->getTextContent()), $message, $group);
+    $this->assertRegExp($pattern, $this->getTextContent(), $message);
+    return TRUE;
   }
 
   /**
@@ -803,8 +812,6 @@ trait AssertContentTrait {
     preg_match('@<title>(.*)</title>@', $this->getRawContent(), $matches);
     if (isset($matches[1])) {
       $actual = $matches[1];
-      $actual = $this->castSafeStrings($actual);
-      $title = $this->castSafeStrings($title);
       if (!$message) {
         $message = new FormattableMarkup('Page title @actual is equal to @expected.', [
           '@actual' => var_export($actual, TRUE),
@@ -911,7 +918,7 @@ trait AssertContentTrait {
    *   this default.
    *
    * @return bool
-   *   TRUE on pass, FALSE on fail.
+   *   TRUE on pass.
    */
   protected function assertFieldsByValue($fields, $value = NULL, $message = '', $group = 'Other') {
     // If value specified then check array for match.
@@ -945,7 +952,9 @@ trait AssertContentTrait {
         }
       }
     }
-    return $this->assertTrue($fields && $found, $message, $group);
+    $this->assertNotEmpty($fields);
+    $this->assertTrue($found, $message);
+    return TRUE;
   }
 
   /**
@@ -1020,7 +1029,7 @@ trait AssertContentTrait {
    *   this default.
    *
    * @return bool
-   *   TRUE on pass, FALSE on fail.
+   *   TRUE on pass.
    */
   protected function assertNoFieldByXPath($xpath, $value = NULL, $message = '', $group = 'Other') {
     $fields = $this->xpath($xpath);
@@ -1037,7 +1046,9 @@ trait AssertContentTrait {
         }
       }
     }
-    return $this->assertFalse($fields && $found, $message, $group);
+    $this->assertNotEmpty($fields);
+    $this->assertTrue($found, $message);
+    return TRUE;
   }
 
   /**
@@ -1186,11 +1197,14 @@ trait AssertContentTrait {
    *   this default.
    *
    * @return bool
-   *   TRUE on pass, FALSE on fail.
+   *   TRUE on pass.
    */
   protected function assertFieldChecked($id, $message = '', $group = 'Browser') {
+    $message = $message ? $message : new FormattableMarkup('Checkbox field @id is checked.', ['@id' => $id]);
     $elements = $this->xpath('//input[@id=:id]', [':id' => $id]);
-    return $this->assertTrue(isset($elements[0]) && !empty($elements[0]['checked']), $message ? $message : new FormattableMarkup('Checkbox field @id is checked.', ['@id' => $id]), $group);
+    $this->assertNotEmpty($elements, $message);
+    $this->assertNotEmpty($elements[0]['checked'], $message);
+    return TRUE;
   }
 
   /**
@@ -1210,11 +1224,14 @@ trait AssertContentTrait {
    *   this default.
    *
    * @return bool
-   *   TRUE on pass, FALSE on fail.
+   *   TRUE on pass.
    */
   protected function assertNoFieldChecked($id, $message = '', $group = 'Browser') {
+    $message = $message ? $message : new FormattableMarkup('Checkbox field @id is not checked.', ['@id' => $id]);
     $elements = $this->xpath('//input[@id=:id]', [':id' => $id]);
-    return $this->assertTrue(isset($elements[0]) && empty($elements[0]['checked']), $message ? $message : new FormattableMarkup('Checkbox field @id is not checked.', ['@id' => $id]), $group);
+    $this->assertNotEmpty($elements, $message);
+    $this->assertEmpty($elements[0]['checked'], $message);
+    return TRUE;
   }
 
   /**
@@ -1306,12 +1323,15 @@ trait AssertContentTrait {
    *   this default.
    *
    * @return bool
-   *   TRUE on pass, FALSE on fail.
+   *   TRUE on pass.
    */
   protected function assertNoOption($id, $option, $message = '', $group = 'Browser') {
+    $message = $message ? $message : new FormattableMarkup('Option @option for field @id does not exist.', ['@option' => $option, '@id' => $id]);
     $selects = $this->xpath('//select[@id=:id]', [':id' => $id]);
     $options = $this->xpath('//select[@id=:id]//option[@value=:option]', [':id' => $id, ':option' => $option]);
-    return $this->assertTrue(isset($selects[0]) && !isset($options[0]), $message ? $message : new FormattableMarkup('Option @option for field @id does not exist.', ['@option' => $option, '@id' => $id]), $group);
+    $this->assertArrayHasKey(0, $selects, $message);
+    $this->assertEmpty($options, $message);
+    return TRUE;
   }
 
   /**
@@ -1333,13 +1353,16 @@ trait AssertContentTrait {
    *   this default.
    *
    * @return bool
-   *   TRUE on pass, FALSE on fail.
+   *   TRUE on pass.
    *
    * @todo $id is unusable. Replace with $name.
    */
   protected function assertOptionSelected($id, $option, $message = '', $group = 'Browser') {
+    $message = $message ? $message : new FormattableMarkup('Option @option for field @id is selected.', ['@option' => $option, '@id' => $id]);
     $elements = $this->xpath('//select[@id=:id]//option[@value=:option]', [':id' => $id, ':option' => $option]);
-    return $this->assertTrue(isset($elements[0]) && !empty($elements[0]['selected']), $message ? $message : new FormattableMarkup('Option @option for field @id is selected.', ['@option' => $option, '@id' => $id]), $group);
+    $this->assertNotEmpty($elements, $message);
+    $this->assertNotEmpty($elements[0]['selected'], $message);
+    return TRUE;
   }
 
   /**
@@ -1366,8 +1389,11 @@ trait AssertContentTrait {
    * @todo $id is unusable. Replace with $name.
    */
   protected function assertOptionSelectedWithDrupalSelector($drupal_selector, $option, $message = '', $group = 'Browser') {
+    $message = $message ? $message : new FormattableMarkup('Option @option for field @data_drupal_selector is selected.', ['@option' => $option, '@data_drupal_selector' => $drupal_selector]);
     $elements = $this->xpath('//select[@data-drupal-selector=:data_drupal_selector]//option[@value=:option]', [':data_drupal_selector' => $drupal_selector, ':option' => $option]);
-    return $this->assertTrue(isset($elements[0]) && !empty($elements[0]['selected']), $message ? $message : new FormattableMarkup('Option @option for field @data_drupal_selector is selected.', ['@option' => $option, '@data_drupal_selector' => $drupal_selector]), $group);
+    $this->assertNotEmpty($elements, $message);
+    $this->assertNotEmpty($elements[0]['selected'], $message);
+    return TRUE;
   }
 
   /**
@@ -1389,11 +1415,14 @@ trait AssertContentTrait {
    *   this default.
    *
    * @return bool
-   *   TRUE on pass, FALSE on fail.
+   *   TRUE on pass.
    */
   protected function assertNoOptionSelected($id, $option, $message = '', $group = 'Browser') {
+    $message = $message ? $message : new FormattableMarkup('Option @option for field @id is not selected.', ['@option' => $option, '@id' => $id]);
     $elements = $this->xpath('//select[@id=:id]//option[@value=:option]', [':id' => $id, ':option' => $option]);
-    return $this->assertTrue(isset($elements[0]) && empty($elements[0]['selected']), $message ? $message : new FormattableMarkup('Option @option for field @id is not selected.', ['@option' => $option, '@id' => $id]), $group);
+    $this->assertNotEmpty($elements, $message);
+    $this->assertEmpty($elements[0]['selected'], $message);
+    return TRUE;
   }
 
   /**
@@ -1464,7 +1493,7 @@ trait AssertContentTrait {
    *   issue that is working to fix that legacy bug.
    *
    * @return bool
-   *   TRUE on pass, FALSE on fail.
+   *   TRUE on pass.
    */
   protected function assertNoDuplicateIds($message = '', $group = 'Other', $ids_to_skip = []) {
     $status = TRUE;
@@ -1476,7 +1505,8 @@ trait AssertContentTrait {
       }
       $seen_ids[$id] = TRUE;
     }
-    return $this->assert($status, $message, $group);
+    $this->assertTrue($status, $message);
+    return TRUE;
   }
 
   /**

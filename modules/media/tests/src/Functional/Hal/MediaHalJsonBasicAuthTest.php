@@ -24,11 +24,6 @@ class MediaHalJsonBasicAuthTest extends MediaHalJsonAnonTest {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
   protected static $auth = 'basic_auth';
 
 }

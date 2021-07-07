@@ -36,18 +36,6 @@ class FileFieldAttributesTest extends FileFieldTestBase {
   protected $baseUri;
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
-   * URI of the front page of the Drupal site.
-   *
-   * @var string
-   */
-  protected $baseUri;
-
-  /**
    * The name of the file field used in the test.
    *
    * @var string

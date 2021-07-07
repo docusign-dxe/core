@@ -25,11 +25,6 @@ class EntityViewControllerTest extends BrowserTestBase {
   protected $defaultTheme = 'classy';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'classy';
-
-  /**
    * Array of test entities.
    *
    * @var array

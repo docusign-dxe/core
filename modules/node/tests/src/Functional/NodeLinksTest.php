@@ -24,11 +24,6 @@ class NodeLinksTest extends NodeTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests that the links can be hidden in the view display settings.
    */
   public function testHideLinks() {

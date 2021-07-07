@@ -24,11 +24,6 @@ class TokenizeAreaUITest extends UITestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Test that the right tokens are shown as available for replacement.
    */
   public function testTokenUI() {
@@ -43,7 +38,7 @@ class TokenizeAreaUITest extends UITestBase {
 
     // Add a global NULL argument to the view for testing argument tokens.
     $this->drupalPostForm("admin/structure/views/nojs/add-handler/$id/page_1/argument", ['name[views.null]' => 1], 'Add and configure contextual filters');
-    $this->drupalPostForm(NULL, [], 'Apply');
+    $this->submitForm([], 'Apply');
 
     $this->drupalPostForm("admin/structure/views/nojs/add-handler/$id/page_1/header", ['name[views.area]' => 'views.area'], 'Add and configure header');
     // Test that field tokens are shown.

@@ -8,6 +8,8 @@ use Drupal\migrate_drupal\Plugin\MigrateFieldPluginManager;
 use Drupal\Tests\DeprecatedModulesTestTrait;
 use Drupal\Tests\migrate_drupal\Kernel\MigrateDrupalTestBase;
 
+// cspell:ignore imagefield optionwidgets userreference
+
 /**
  * Tests that modules exist for all source and destination plugins.
  *

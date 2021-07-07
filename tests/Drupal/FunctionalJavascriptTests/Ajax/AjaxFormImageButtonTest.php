@@ -22,11 +22,6 @@ class AjaxFormImageButtonTest extends WebDriverTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests image buttons can be operated with the keyboard ENTER key.
    */
   public function testAjaxImageButtonKeypressEnter() {

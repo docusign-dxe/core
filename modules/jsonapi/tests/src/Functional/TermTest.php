@@ -34,11 +34,6 @@ class TermTest extends ResourceTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
   protected static $entityTypeId = 'taxonomy_term';
 
   /**
@@ -472,13 +467,6 @@ class TermTest extends ResourceTestBase {
         [3, 2],
       ],
     ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function testRelated() {
-    $this->markTestSkipped('Remove this in https://www.drupal.org/project/drupal/issues/2940339');
   }
 
   /**

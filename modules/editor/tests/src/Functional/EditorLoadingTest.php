@@ -28,11 +28,6 @@ class EditorLoadingTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * An untrusted user, with access to the 'plain_text' format.
    *
    * @var \Drupal\user\UserInterface
@@ -239,7 +234,8 @@ class EditorLoadingTest extends BrowserTestBase {
     $this->assertTrue($editor_settings_present, 'Text Editor module settings.');
     $this->assertTrue($editor_js_present, 'Text Editor JavaScript.');
     $this->assertCount(1, $body, 'A body field exists.');
-    $this->assertFieldByXPath('//textarea[@id="edit-body-0-value" and @disabled="disabled"]', t('This field has been disabled because you do not have sufficient permissions to edit it.'), 'Text format access denied message found.');
+    $this->assertSession()->fieldDisabled("edit-body-0-value");
+    $this->assertSession()->fieldValueEquals("edit-body-0-value", 'This field has been disabled because you do not have sufficient permissions to edit it.');
     $this->assertCount(0, $format_selector, 'No text format selector exists on the page.');
     $hidden_input = $this->xpath('//input[@type="hidden" and contains(@class, "editor")]');
     $this->assertCount(0, $hidden_input, 'A single text format hidden input does not exist on the page.');
@@ -263,7 +259,7 @@ class EditorLoadingTest extends BrowserTestBase {
     ]);
     $editor->save();
 
-    // Create an "page" node that uses the full_html text format.
+    // Create a "page" node that uses the full_html text format.
     $this->drupalCreateNode([
       'type' => 'page',
       'field_text' => [

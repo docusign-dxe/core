@@ -26,11 +26,6 @@ class DateFormatXmlBasicAuthTest extends DateFormatResourceTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
   protected static $format = 'xml';
 
   /**

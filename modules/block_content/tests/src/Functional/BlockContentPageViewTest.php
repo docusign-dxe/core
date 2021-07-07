@@ -22,11 +22,6 @@ class BlockContentPageViewTest extends BlockContentTestBase {
   protected $defaultTheme = 'classy';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'classy';
-
-  /**
    * Checks block edit and fallback functionality.
    */
   public function testPageEdit() {

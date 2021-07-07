@@ -25,11 +25,6 @@ class UserChangedTest extends ViewTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Views used by this test.
    *
    * @var array
@@ -39,7 +34,7 @@ class UserChangedTest extends ViewTestBase {
   protected function setUp($import_test_views = TRUE): void {
     parent::setUp($import_test_views);
 
-    ViewTestData::createTestViews(get_class($this), ['user_test_views']);
+    ViewTestData::createTestViews(static::class, ['user_test_views']);
 
     $this->enableViewsTestModule();
   }

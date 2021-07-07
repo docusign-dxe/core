@@ -25,11 +25,6 @@ class CheckboxTest extends BrowserTestBase {
    */
   protected $defaultTheme = 'stark';
 
-  /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
   public function testFormCheckbox() {
     // Ensure that the checked state is determined and rendered correctly for
     // tricky combinations of default and return values.
@@ -76,7 +71,7 @@ class CheckboxTest extends BrowserTestBase {
     // the checkbox.
     $this->drupalGet('form-test/checkboxes-zero/1');
     $this->assertSession()->fieldExists('checkbox_off[0]')->check();
-    $this->drupalPostForm(NULL, NULL, 'Save');
+    $this->submitForm([], 'Save');
     $results = json_decode($this->getSession()->getPage()->getContent());
     $this->assertIdentical($results->checkbox_off, ['0', 0, 0], 'The first choice is on in checkbox_off but the rest is not');
 
@@ -96,7 +91,7 @@ class CheckboxTest extends BrowserTestBase {
     // the checkbox.
     $this->drupalGet('form-test/checkboxes-zero/0');
     $this->assertSession()->fieldExists('checkbox_off[0]')->check();
-    $this->drupalPostForm(NULL, NULL, 'Save');
+    $this->submitForm([], 'Save');
     $checkboxes = $this->xpath('//input[@type="checkbox"]');
 
     $this->assertCount(9, $checkboxes, 'Correct number of checkboxes found.');

@@ -24,11 +24,6 @@ class ServiceProviderWebTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests that module service providers get registered to the DIC.
    *
    * Also tests that services provided by module service providers get
@@ -41,7 +36,7 @@ class ServiceProviderWebTest extends BrowserTestBase {
     // saying it has fired. This will fire on every page request so it should
     // show up on the front page.
     $this->drupalGet('');
-    $this->assertText(t('The service_provider_test event subscriber fired!'), 'The service_provider_test event subscriber fired');
+    $this->assertText('The service_provider_test event subscriber fired!', 'The service_provider_test event subscriber fired');
   }
 
 }

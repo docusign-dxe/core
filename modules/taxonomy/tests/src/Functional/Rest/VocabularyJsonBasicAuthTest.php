@@ -24,11 +24,6 @@ class VocabularyJsonBasicAuthTest extends VocabularyResourceTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
   protected static $format = 'json';
 
   /**

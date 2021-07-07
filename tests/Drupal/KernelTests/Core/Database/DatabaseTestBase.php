@@ -171,13 +171,6 @@ abstract class DatabaseTestBase extends KernelTestBase {
         'function' => 'Function value 1',
       ])
       ->execute();
-
-    $connection->insert('virtual')
-      ->fields([
-        'id' => 1,
-        'function' => 'Function value 1',
-      ])
-      ->execute();
   }
 
 }

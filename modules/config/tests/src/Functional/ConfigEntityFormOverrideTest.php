@@ -22,11 +22,6 @@ class ConfigEntityFormOverrideTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests that overrides do not affect forms or listing screens.
    */
   public function testFormsWithOverrides() {
@@ -65,7 +60,7 @@ class ConfigEntityFormOverrideTest extends BrowserTestBase {
     $edit = [
       'label' => $edited_label,
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save'));
+    $this->submitForm($edit, 'Save');
     $this->drupalGet('admin/structure/config_test');
     $this->assertNoText($overridden_label);
     $this->assertText($edited_label);

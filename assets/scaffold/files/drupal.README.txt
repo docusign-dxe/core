@@ -92,7 +92,6 @@ More about themes:
    https://www.drupal.org/docs/theming-drupal
 
 
-
 DEVELOPING FOR DRUPAL
 ---------------------
 

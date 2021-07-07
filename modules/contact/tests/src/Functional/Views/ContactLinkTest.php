@@ -35,11 +35,6 @@ class ContactLinkTest extends ViewTestBase {
   protected $defaultTheme = 'classy';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'classy';
-
-  /**
    * Views used by this test.
    *
    * @var array
@@ -52,7 +47,7 @@ class ContactLinkTest extends ViewTestBase {
   protected function setUp($import_test_views = TRUE): void {
     parent::setUp($import_test_views);
 
-    ViewTestData::createTestViews(get_class($this), ['contact_test_views']);
+    ViewTestData::createTestViews(static::class, ['contact_test_views']);
 
     $this->userData = $this->container->get('user.data');
   }
@@ -106,7 +101,7 @@ class ContactLinkTest extends ViewTestBase {
    */
   public function assertContactLinks(array $accounts, array $names) {
     $result = $this->xpath('//div[contains(@class, "views-field-contact")]//a');
-    $this->assertEqual(count($result), count($names));
+    $this->assertSame(count($names), count($result));
     foreach ($names as $name) {
       $account = $accounts[$name];
 

@@ -28,11 +28,6 @@ class EarlyRenderingControllerTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests theme preprocess functions being able to attach assets.
    */
   public function testEarlyRendering() {
@@ -40,11 +35,11 @@ class EarlyRenderingControllerTest extends BrowserTestBase {
     $this->drupalGet(Url::fromRoute('early_rendering_controller_test.render_array'));
     $this->assertSession()->statusCodeEquals(200);
     $this->assertRaw('Hello world!');
-    $this->assertCacheTag('foo');
+    $this->assertSession()->responseHeaderContains('X-Drupal-Cache-Tags', 'foo');
     $this->drupalGet(Url::fromRoute('early_rendering_controller_test.render_array.early'));
     $this->assertSession()->statusCodeEquals(200);
     $this->assertRaw('Hello world!');
-    $this->assertCacheTag('foo');
+    $this->assertSession()->responseHeaderContains('X-Drupal-Cache-Tags', 'foo');
 
     // AjaxResponse: non-early & early.
     // @todo Add cache tags assertion when AjaxResponse is made cacheable in

@@ -24,11 +24,6 @@ class LockFunctionalTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Confirms that we can acquire and release locks in two parallel requests.
    */
   public function testLockAcquire() {

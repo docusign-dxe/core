@@ -29,11 +29,6 @@ class FilterSecurityTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * A user with administrative permissions.
    *
    * @var \Drupal\user\UserInterface
@@ -77,7 +72,7 @@ class FilterSecurityTest extends BrowserTestBase {
     $edit = [
       'filters[filter_test_replace][status]' => 1,
     ];
-    $this->drupalPostForm('admin/config/content/formats/manage/' . $format_id, $edit, t('Save configuration'));
+    $this->drupalPostForm('admin/config/content/formats/manage/' . $format_id, $edit, 'Save configuration');
 
     // Verify that filter_test_replace filter replaced the content.
     $this->drupalGet('node/' . $node->id());
@@ -85,7 +80,7 @@ class FilterSecurityTest extends BrowserTestBase {
     $this->assertText('Filter: Testing filter', 'Testing filter output found.');
 
     // Disable the text format entirely.
-    $this->drupalPostForm('admin/config/content/formats/manage/' . $format_id . '/disable', [], t('Disable'));
+    $this->drupalPostForm('admin/config/content/formats/manage/' . $format_id . '/disable', [], 'Disable');
 
     // Verify that the content is empty, because the text format does not exist.
     $this->drupalGet('node/' . $node->id());

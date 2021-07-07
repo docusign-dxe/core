@@ -26,11 +26,6 @@ class JSWebAssertTest extends WebDriverTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests that JSWebAssert assertions work correctly.
    */
   public function testJsWebAssert() {

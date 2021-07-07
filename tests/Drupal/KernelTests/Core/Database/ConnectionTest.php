@@ -2,6 +2,7 @@
 
 namespace Drupal\KernelTests\Core\Database;
 
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Database\DatabaseExceptionWrapper;
 use Drupal\Core\Database\Query\Condition;
@@ -118,6 +119,22 @@ class ConnectionTest extends DatabaseTestBase {
   }
 
   /**
+   * Tests the deprecation of the 'transactions' connection option.
+   *
+   * @group legacy
+   */
+  public function testTransactionsOptionDeprecation() {
+    $this->expectDeprecation('Passing a \'transactions\' connection option to Drupal\Core\Database\Connection::__construct is deprecated in drupal:9.1.0 and is removed in drupal:10.0.0. All database drivers must support transactions. See https://www.drupal.org/node/2278745');
+    $this->expectDeprecation('Drupal\Core\Database\Connection::supportsTransactions is deprecated in drupal:9.1.0 and is removed in drupal:10.0.0. All database drivers must support transactions. See https://www.drupal.org/node/2278745');
+    $connection_info = Database::getConnectionInfo('default');
+    $connection_info['default']['transactions'] = FALSE;
+    Database::addConnectionInfo('default', 'foo', $connection_info['default']);
+    $foo_connection = Database::getConnection('foo', 'default');
+    $this->assertInstanceOf(Connection::class, $foo_connection);
+    $this->assertTrue($foo_connection->supportsTransactions());
+  }
+
+  /**
    * Ensure that you cannot execute multiple statements on MySQL.
    */
   public function testMultipleStatementsForNewPhp() {
@@ -138,19 +155,6 @@ class ConnectionTest extends DatabaseTestBase {
   public function testMultipleStatements() {
     $this->expectException(\InvalidArgumentException::class);
     Database::getConnection('default', 'default')->query('SELECT * FROM {test}; SELECT * FROM {test_people}');
-  }
-
-  /**
-   * Test that the method ::condition() returns a Condition object.
-   */
-  public function testCondition() {
-    $connection = Database::getConnection('default', 'default');
-    $namespace = (new \ReflectionObject($connection))->getNamespaceName() . "\\Condition";
-    if (!class_exists($namespace)) {
-      $namespace = Condition::class;
-    }
-    $condition = $connection->condition('AND');
-    $this->assertSame($namespace, get_class($condition));
   }
 
   /**

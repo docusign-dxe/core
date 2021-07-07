@@ -24,11 +24,6 @@ class NodeHelpTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * The name of the test node type to create.
    *
    * @var string
@@ -59,7 +54,7 @@ class NodeHelpTest extends BrowserTestBase {
     $this->drupalPlaceBlock('help_block');
 
     $this->testType = 'type';
-    $this->testText = t('Help text to find on node forms.');
+    $this->testText = 'Help text to find on node forms.';
 
     // Create content type.
     $this->drupalCreateContentType([

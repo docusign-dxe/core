@@ -65,7 +65,7 @@ class NameMungingTest extends FileTestBase {
     $munged_name = file_munge_filename($this->name, '', TRUE);
     $messages = \Drupal::messenger()->all();
     \Drupal::messenger()->deleteAll();
-    $this->assertContains(strtr('For security reasons, your upload has been renamed to <em class="placeholder">%filename</em>.', ['%filename' => $munged_name]), $messages['status'], 'Alert properly set when a file is renamed.');
+    $this->assertContainsEquals(strtr('For security reasons, your upload has been renamed to <em class="placeholder">%filename</em>.', ['%filename' => $munged_name]), $messages['status'], 'Alert properly set when a file is renamed.');
     $this->assertNotEqual($munged_name, $this->name, new FormattableMarkup('The new filename (%munged) has been modified from the original (%original)', ['%munged' => $munged_name, '%original' => $this->name]));
   }
 
@@ -99,6 +99,18 @@ class NameMungingTest extends FileTestBase {
     // The allowed extensions should also be normalized.
     $munged_name = file_munge_filename($this->name, strtoupper($this->badExtension));
     $this->assertSame($munged_name, $this->name);
+  }
+
+  /**
+   * Tests unsafe extensions are always munged by file_munge_filename().
+   */
+  public function testMungeUnsafe() {
+    $prefix = $this->randomMachineName();
+    $name = "$prefix.php.txt";
+    // Put the php extension in the allowed list, but since it is in the unsafe
+    // extension list, it should still be munged.
+    $munged_name = file_munge_filename($name, 'php txt');
+    $this->assertSame("$prefix.php_.txt", $munged_name);
   }
 
   /**

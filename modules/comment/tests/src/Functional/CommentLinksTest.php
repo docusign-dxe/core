@@ -44,11 +44,6 @@ class CommentLinksTest extends CommentTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests that comment links are output and can be hidden.
    */
   public function testCommentLinks() {
@@ -106,7 +101,7 @@ class CommentLinksTest extends CommentTestBase {
       // In teaser view, a link containing the comment count is always
       // expected.
       if ($path == 'node') {
-        $this->assertSession()->linkExists(t('1 comment'));
+        $this->assertSession()->linkExists('1 comment');
       }
       $this->assertSession()->linkExists('Add new comment');
     }

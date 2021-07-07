@@ -26,11 +26,6 @@ class ModeratedNodeXmlBasicAuthTest extends ModeratedNodeResourceTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
   protected static $format = 'xml';
 
   /**

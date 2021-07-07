@@ -32,17 +32,17 @@ use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
- * Disabled option on forms and settings
+ * Disabled option on forms and settings.
  */
 const DRUPAL_DISABLED = 0;
 
 /**
- * Optional option on forms and settings
+ * Optional option on forms and settings.
  */
 const DRUPAL_OPTIONAL = 1;
 
 /**
- * Required option on forms and settings
+ * Required option on forms and settings.
  */
 const DRUPAL_REQUIRED = 2;
 
@@ -141,7 +141,7 @@ function system_help($route_name, RouteMatchInterface $route_match) {
       break;
 
     case 'system.status':
-      return '<p>' . t("Here you can find a short overview of your site's parameters as well as any problems detected with your installation. It may be useful to copy and paste this information into support requests filed on Drupal.org's support forums and project issue queues. Before filing a support request, ensure that your web server meets the <a href=\":system-requirements\">system requirements.</a>", [':system-requirements' => 'https://www.drupal.org/requirements']) . '</p>';
+      return '<p>' . t("Here you can find a short overview of your site's parameters as well as any problems detected with your installation. It may be useful to copy and paste this information into support requests filed on Drupal.org's support forums and project issue queues. Before filing a support request, ensure that your web server meets the <a href=\":system-requirements\">system requirements.</a>", [':system-requirements' => 'https://www.drupal.org/docs/system-requirements']) . '</p>';
   }
 }
 
@@ -1254,53 +1254,55 @@ function system_modules_uninstalled($modules) {
 }
 
 /**
- * Implements hook_ENTITY_TYPE_presave() for entity_form_display entities.
+ * Determines if Claro is the admin theme but not the active theme.
  *
- * Provides a BC layer for modules providing old configurations.
- *
- * @todo Remove this hook in Drupal 9.0.x https://www.drupal.org/project/drupal/issues/3086388
+ * @return bool
+ *   TRUE if Claro is the admin theme but not the active theme.
  */
-function system_entity_form_display_presave(EntityFormDisplayInterface $display) {
-  /** @var \Drupal\Core\Field\WidgetPluginManager $field_widget_manager */
-  $field_widget_manager = \Drupal::service('plugin.manager.field.widget');
+function _system_is_claro_admin_and_not_active() {
+  $admin_theme = \Drupal::configFactory()->get('system.theme')->get('admin');
+  $active_theme = \Drupal::theme()->getActiveTheme()->getName();
+  return $active_theme !== 'claro' && $admin_theme === 'claro';
+}
 
-  foreach ($display->getComponents() as $field_name => $component) {
-    if (empty($component['type'])) {
-      continue;
-    }
-
-    $plugin_definition = $field_widget_manager->getDefinition($component['type'], FALSE);
-    if (!is_a($plugin_definition['class'], EntityReferenceAutocompleteWidget::class, TRUE)) {
-      continue;
-    }
-
-    if (!isset($component['settings']['match_limit'])) {
-      @trigger_error(sprintf('Any entity_reference_autocomplete component of an entity_form_display must have a match_limit setting. The %s field on the %s form display is missing it. This BC layer will be removed before 9.0.0. See https://www.drupal.org/node/2863188', $field_name, $display->id()), E_USER_DEPRECATED);
-      $component['settings']['match_limit'] = 10;
-      $display->setComponent($field_name, $component);
-    }
+/**
+ * Implements hook_library_info_alter().
+ */
+function system_library_info_alter(&$libraries, $extension) {
+  // If Claro is the admin theme but not the active theme, grant Claro the
+  // ability to override the toolbar library with its own assets.
+  if ($extension === 'toolbar' && _system_is_claro_admin_and_not_active()) {
+    require_once DRUPAL_ROOT . '/core/themes/claro/claro.theme';
+    claro_system_module_invoked_library_info_alter($libraries, $extension);
   }
 }
 
 /**
- * Implements hook_ENTITY_TYPE_presave().
+ * Implements hook_preprocess_toolbar().
  */
-function system_path_alias_presave(PathAliasInterface $path_alias) {
-  // Prevent path aliases from being saved if the "url_alias" migration was not
-  // performed yet. This avoids the risk of introducing duplicate aliases or get
-  // the new path alias schema in an inconsistent state.
-  if (Settings::get('system.path_alias_schema_check', TRUE) && drupal_get_installed_schema_version('system') < 8804) {
-    /** @var \Drupal\system\Access\DbUpdateAccessCheck $db_update_access */
-    $db_update_access = \Drupal::service('access_check.db_update');
-    if ($db_update_access->access(\Drupal::currentUser())->isAllowed()) {
-      $args = [':url' => Url::fromUri('base://update.php')->toString()];
-      \Drupal::messenger()->addError(t('Path aliases cannot be saved until <a href=":url">database updates</a> are performed.', $args));
-    }
-    else {
-      \Drupal::messenger()->addError(t('Path aliases cannot be saved until <em>database updates</em> are performed.'));
-    }
-    $message = 'Path alias "@alias" ("@path") could not be saved because the "system_update_8804" database update was not applied yet.';
-    $args = ['@path' => $path_alias->getPath(), '@alias' => $path_alias->getAlias()];
-    throw new \LogicException(new FormattableMarkup($message, $args));
+function system_preprocess_toolbar(array &$variables, $hook, $info) {
+  // When Claro is the admin theme, Claro overrides the active theme's if that
+  // active theme is not Claro. Because of these potential overrides, the
+  // toolbar cache should be invalidated any time the default or admin theme
+  // changes.
+  $variables['#cache']['tags'][] = 'config:system.theme';
+
+  // If Claro is the admin theme but not the active theme, still include Claro's
+  // toolbar preprocessing.
+  if (_system_is_claro_admin_and_not_active()) {
+    require_once DRUPAL_ROOT . '/core/themes/claro/claro.theme';
+    claro_preprocess_toolbar($variables, $hook, $info);
+  }
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function system_theme_registry_alter(array &$theme_registry) {
+  // If Claro is the admin theme but not the active theme, use Claro's toolbar
+  // templates.
+  if (_system_is_claro_admin_and_not_active()) {
+    require_once DRUPAL_ROOT . '/core/themes/claro/claro.theme';
+    claro_system_module_invoked_theme_registry_alter($theme_registry);
   }
 }

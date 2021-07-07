@@ -30,11 +30,6 @@ class QuickEditImageControllerTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * The machine name of our image field.
    *
    * @var string
@@ -144,7 +139,7 @@ class QuickEditImageControllerTest extends BrowserTestBase {
   }
 
   /**
-   * Tests that uploading a invalid image does not work.
+   * Tests that uploading an invalid image does not work.
    */
   public function testInvalidUpload() {
     // Create a test Node.

@@ -24,11 +24,6 @@ class BlockContentSaveTest extends BlockContentTestBase {
   protected $defaultTheme = 'classy';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'classy';
-
-  /**
    * Sets the test up.
    */
   protected function setUp(): void {

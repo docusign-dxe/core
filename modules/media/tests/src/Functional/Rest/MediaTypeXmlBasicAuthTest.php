@@ -26,11 +26,6 @@ class MediaTypeXmlBasicAuthTest extends MediaTypeResourceTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
   protected static $format = 'xml';
 
   /**

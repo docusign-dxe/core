@@ -26,11 +26,6 @@ class MediaSourceOEmbedVideoTest extends MediaSourceTestBase {
    */
   protected $defaultTheme = 'classy';
 
-  /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'classy';
-
   use OEmbedTestTrait;
 
   /**

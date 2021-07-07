@@ -25,9 +25,4 @@ class ContentModerationAdminPathEntityConverterLanguageTest extends AdminPathEnt
    */
   protected $defaultTheme = 'stark';
 
-  /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
 }

@@ -28,11 +28,6 @@ class PathAliasXmlBasicAuthTest extends PathAliasResourceTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
   protected static $format = 'xml';
 
   /**

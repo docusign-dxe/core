@@ -28,11 +28,6 @@ class UpdatesWith7xTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * The URL for the update page.
    *
    * @var string
@@ -67,7 +62,7 @@ class UpdatesWith7xTest extends BrowserTestBase {
     $this->drupalGet($this->updateUrl, ['external' => TRUE]);
     $this->updateRequirementsProblem();
     $this->clickLink(t('Continue'));
-    $this->assertText(t('Some of the pending updates cannot be applied because their dependencies were not met.'));
+    $this->assertText('Some of the pending updates cannot be applied because their dependencies were not met.');
   }
 
 }

@@ -25,11 +25,6 @@ class NodeEntityViewModeAlterTest extends NodeTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Create a "Basic page" node and verify its consistency in the database.
    */
   public function testNodeViewModeChange() {
@@ -44,7 +39,7 @@ class NodeEntityViewModeAlterTest extends NodeTestBase {
     $edit['title[0][value]'] = $this->randomMachineName(8);
     $edit['body[0][value]'] = t('Data that should appear only in the body for the node.');
     $edit['body[0][summary]'] = t('Extra data that should appear only in the teaser for the node.');
-    $this->drupalPostForm('node/add/page', $edit, t('Save'));
+    $this->drupalPostForm('node/add/page', $edit, 'Save');
 
     $node = $this->drupalGetNodeByTitle($edit['title[0][value]']);
 

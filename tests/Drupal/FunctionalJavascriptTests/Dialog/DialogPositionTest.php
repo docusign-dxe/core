@@ -22,11 +22,6 @@ class DialogPositionTest extends WebDriverTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests if the dialog UI works properly with block layout page.
    */
   public function testDialogOpenAndClose() {
@@ -52,7 +47,7 @@ class DialogPositionTest extends WebDriverTestBase {
     $dialog = $page->find('css', '.ui-dialog');
     $this->assertNull($dialog, 'Dialog is closed after clicking the close button.');
 
-    // Resize the window. The test should pass after waiting for Javascript to
+    // Resize the window. The test should pass after waiting for JavaScript to
     // finish as no Javascript errors should have been triggered. If there were
     // javascript errors the test will fail on that.
     $session->resizeWindow(625, 625);

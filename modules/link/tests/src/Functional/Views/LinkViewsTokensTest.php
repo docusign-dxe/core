@@ -27,11 +27,6 @@ class LinkViewsTokensTest extends ViewTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Views used by this test.
    *
    * @var array
@@ -50,7 +45,7 @@ class LinkViewsTokensTest extends ViewTestBase {
    */
   protected function setUp($import_test_views = TRUE): void {
     parent::setUp($import_test_views);
-    ViewTestData::createTestViews(get_class($this), ['link_test_views']);
+    ViewTestData::createTestViews(static::class, ['link_test_views']);
 
     // Create Basic page node type.
     $this->drupalCreateContentType([

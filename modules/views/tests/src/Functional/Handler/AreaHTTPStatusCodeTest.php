@@ -33,11 +33,6 @@ class AreaHTTPStatusCodeTest extends ViewTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests the area handler.
    */
   public function testHTTPStatusCodeHandler() {

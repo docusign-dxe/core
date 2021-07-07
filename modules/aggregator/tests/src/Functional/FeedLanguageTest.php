@@ -27,11 +27,6 @@ class FeedLanguageTest extends AggregatorTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * List of langcodes.
    *
    * @var string[]
@@ -73,7 +68,7 @@ class FeedLanguageTest extends AggregatorTestBase {
     $edit['entity_types[aggregator_feed]'] = TRUE;
     $edit['settings[aggregator_feed][aggregator_feed][settings][language][language_alterable]'] = TRUE;
 
-    $this->drupalPostForm('admin/config/regional/content-language', $edit, t('Save configuration'));
+    $this->drupalPostForm('admin/config/regional/content-language', $edit, 'Save configuration');
 
     /** @var \Drupal\aggregator\FeedInterface[] $feeds */
     $feeds = [];
@@ -94,7 +89,8 @@ class FeedLanguageTest extends AggregatorTestBase {
     foreach ($feeds as $feed) {
       /** @var \Drupal\aggregator\ItemInterface[] $items */
       $items = \Drupal::entityTypeManager()->getStorage('aggregator_item')->loadByProperties(['fid' => $feed->id()]);
-      $this->assertTrue(count($items) > 0, 'Feed items were created.');
+      // Verify that the feed items were created.
+      $this->assertNotEmpty($items);
       foreach ($items as $item) {
         $this->assertEqual($item->language()->getId(), $feed->language()->getId());
       }

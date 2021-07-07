@@ -27,11 +27,6 @@ class UpdateSchemaTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * @var \Drupal\user\UserInterface
    */
   protected $user;

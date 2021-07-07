@@ -4,7 +4,14 @@
 build:
   assessment:
     validate_codebase:
-      # Core's code quality is checked by container_command.commit_checks.
+      phplint:
+      eslint:
+        # A test must pass eslinting standards check in order to continue processing.
+        halt-on-fail: false
+      phpcs:
+        # phpcs will use core's specified version of Coder.
+        sniff-all-files: false
+        halt-on-fail: false
     testing:
       # Run code quality checks.
       container_command.commit-checks:

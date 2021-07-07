@@ -22,11 +22,6 @@ class ModalRendererTest extends WebDriverTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests that links respect 'data-dialog-renderer' attribute.
    */
   public function testModalRenderer() {

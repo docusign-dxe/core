@@ -188,6 +188,12 @@ function file_munge_filename($filename, $extensions, $alerts = TRUE) {
 
     $allowed_extensions = array_unique(explode(' ', strtolower(trim($extensions))));
 
+    // Remove unsafe extensions from the allowed list of extensions.
+    // @todo https://www.drupal.org/project/drupal/issues/3032390 Make the list
+    //   of unsafe extensions a constant. The list is copied from
+    //   FILE_INSECURE_EXTENSION_REGEX.
+    $allowed_extensions = array_diff($allowed_extensions, explode('|', 'phar|php|pl|py|cgi|asp|js'));
+
     // Split the filename up by periods. The first part becomes the basename
     // the last part the final extension.
     $filename_parts = explode('.', $filename);

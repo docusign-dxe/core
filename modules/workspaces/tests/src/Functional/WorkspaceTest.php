@@ -24,11 +24,6 @@ class WorkspaceTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * A test user.
    *
    * @var \Drupal\user\Entity\User

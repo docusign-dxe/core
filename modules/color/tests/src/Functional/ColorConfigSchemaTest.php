@@ -24,11 +24,6 @@ class ColorConfigSchemaTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * A user with administrative permissions.
    *
    * @var \Drupal\user\UserInterface
@@ -54,7 +49,7 @@ class ColorConfigSchemaTest extends BrowserTestBase {
     $settings_path = 'admin/appearance/settings/bartik';
     $edit['scheme'] = '';
     $edit['palette[bg]'] = '#123456';
-    $this->drupalPostForm($settings_path, $edit, t('Save configuration'));
+    $this->drupalPostForm($settings_path, $edit, 'Save configuration');
   }
 
 }

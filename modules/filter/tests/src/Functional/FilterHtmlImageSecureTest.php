@@ -32,11 +32,6 @@ class FilterHtmlImageSecureTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * An authenticated user.
    *
    * @var \Drupal\user\UserInterface
@@ -148,7 +143,7 @@ class FilterHtmlImageSecureTest extends BrowserTestBase {
     $edit = [
       'comment_body[0][value]' => implode("\n", $comment),
     ];
-    $this->drupalPostForm('node/' . $this->node->id(), $edit, t('Save'));
+    $this->drupalPostForm('node/' . $this->node->id(), $edit, 'Save');
     foreach ($images as $image => $converted) {
       $found = FALSE;
       foreach ($this->xpath('//img[@testattribute="' . hash('sha256', $image) . '"]') as $element) {

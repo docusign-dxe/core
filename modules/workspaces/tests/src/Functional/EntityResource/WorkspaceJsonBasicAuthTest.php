@@ -26,11 +26,6 @@ class WorkspaceJsonBasicAuthTest extends WorkspaceResourceTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
   protected static $format = 'json';
 
   /**

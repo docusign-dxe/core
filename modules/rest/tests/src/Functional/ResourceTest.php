@@ -31,11 +31,6 @@ class ResourceTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * The entity.
    *
    * @var \Drupal\Core\Entity\EntityInterface

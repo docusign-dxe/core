@@ -25,11 +25,6 @@ class FieldStorageConfigTest extends ResourceTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
   protected static $entityTypeId = 'field_storage_config';
 
   /**

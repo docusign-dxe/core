@@ -25,11 +25,6 @@ class DownloadFunctionalTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests that an exception is thrown bu migration continues with the next row.
    */
   public function testExceptionThrow() {

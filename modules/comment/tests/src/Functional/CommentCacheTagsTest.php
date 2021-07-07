@@ -33,11 +33,6 @@ class CommentCacheTagsTest extends EntityWithUriCacheTagsTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * @var \Drupal\entity_test\Entity\EntityTest
    */
   protected $entityTestCamelid;

@@ -24,11 +24,6 @@ class GetRdfNamespacesTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests getting RDF namespaces.
    */
   public function testGetRdfNamespaces() {

@@ -31,11 +31,6 @@ class UrlAlterFunctionalTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Test that URL altering works and that it occurs in the correct order.
    */
   public function testUrlAlter() {
@@ -63,8 +58,8 @@ class UrlAlterFunctionalTest extends BrowserTestBase {
 
     // Test adding an alias via the UI.
     $edit = ['path[0][value]' => "/user/$uid/edit", 'alias[0][value]' => '/alias/test2'];
-    $this->drupalPostForm('admin/config/search/path/add', $edit, t('Save'));
-    $this->assertText(t('The alias has been saved.'));
+    $this->drupalPostForm('admin/config/search/path/add', $edit, 'Save');
+    $this->assertText('The alias has been saved.');
     $this->drupalGet('alias/test2');
     $this->assertSession()->statusCodeEquals(200);
     $this->assertUrlOutboundAlter("/user/$uid/edit", '/alias/test2');
@@ -112,7 +107,7 @@ class UrlAlterFunctionalTest extends BrowserTestBase {
   }
 
   /**
-   * Assert that a inbound path is altered to an expected value.
+   * Assert that an inbound path is altered to an expected value.
    *
    * @param $original
    *   The original path before it has been altered by inbound URL processing.

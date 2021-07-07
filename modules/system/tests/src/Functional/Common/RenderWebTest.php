@@ -29,22 +29,17 @@ class RenderWebTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Asserts the cache context for the wrapper format is always present.
    */
   public function testWrapperFormatCacheContext() {
     $this->drupalGet('common-test/type-link-active-class');
     $this->assertStringStartsWith("<!DOCTYPE html>\n<html", $this->getSession()->getPage()->getContent());
-    $this->assertIdentical('text/html; charset=UTF-8', $this->drupalGetHeader('Content-Type'));
-    $this->assertTitle('Test active link class | Drupal');
+    $this->assertSession()->responseHeaderEquals('Content-Type', 'text/html; charset=UTF-8');
+    $this->assertSession()->titleEquals('Test active link class | Drupal');
     $this->assertCacheContext('url.query_args:' . MainContentViewSubscriber::WRAPPER_FORMAT);
 
     $this->drupalGet('common-test/type-link-active-class', ['query' => [MainContentViewSubscriber::WRAPPER_FORMAT => 'json']]);
-    $this->assertIdentical('application/json', $this->drupalGetHeader('Content-Type'));
+    $this->assertSession()->responseHeaderEquals('Content-Type', 'application/json');
     $json = Json::decode($this->getSession()->getPage()->getContent());
     $this->assertEqual(['content', 'title'], array_keys($json));
     $this->assertIdentical('Test active link class', $json['title']);

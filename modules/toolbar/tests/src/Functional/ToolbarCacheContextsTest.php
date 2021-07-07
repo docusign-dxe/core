@@ -29,11 +29,6 @@ class ToolbarCacheContextsTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * An authenticated user to use for testing.
    *
    * @var \Drupal\user\UserInterface
@@ -75,9 +70,9 @@ class ToolbarCacheContextsTest extends BrowserTestBase {
     $this->installExtraModules(['dynamic_page_cache']);
     $this->drupalLogin($this->adminUser);
     $this->drupalGet('test-page');
-    $this->assertSame('MISS', $this->getSession()->getResponseHeader('X-Drupal-Dynamic-Cache'));
+    $this->assertSession()->responseHeaderEquals('X-Drupal-Dynamic-Cache', 'MISS');
     $this->drupalGet('test-page');
-    $this->assertSame('HIT', $this->getSession()->getResponseHeader('X-Drupal-Dynamic-Cache'));
+    $this->assertSession()->responseHeaderEquals('X-Drupal-Dynamic-Cache', 'HIT');
   }
 
   /**

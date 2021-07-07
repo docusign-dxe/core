@@ -26,11 +26,6 @@ class ImageStyleXmlBasicAuthTest extends ImageStyleResourceTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
   protected static $format = 'xml';
 
   /**

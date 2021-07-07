@@ -26,11 +26,6 @@ class BlockContentXmlBasicAuthTest extends BlockContentResourceTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
   protected static $format = 'xml';
 
   /**

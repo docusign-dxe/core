@@ -25,11 +25,6 @@ class FilterDefaultFormatTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests if the default text format is accessible to users.
    */
   public function testDefaultTextFormats() {
@@ -43,7 +38,7 @@ class FilterDefaultFormatTest extends BrowserTestBase {
         'format' => mb_strtolower($this->randomMachineName()),
         'name' => $this->randomMachineName(),
       ];
-      $this->drupalPostForm('admin/config/content/formats/add', $edit, t('Save configuration'));
+      $this->drupalPostForm('admin/config/content/formats/add', $edit, 'Save configuration');
       $this->resetFilterCaches();
       $formats[] = FilterFormat::load($edit['format']);
     }
@@ -60,7 +55,7 @@ class FilterDefaultFormatTest extends BrowserTestBase {
     $edit = [];
     $edit['formats[' . $first_format->id() . '][weight]'] = -2;
     $edit['formats[' . $second_format->id() . '][weight]'] = -1;
-    $this->drupalPostForm('admin/config/content/formats', $edit, t('Save'));
+    $this->drupalPostForm('admin/config/content/formats', $edit, 'Save');
     $this->resetFilterCaches();
 
     // Check that each user's default format is the lowest weighted format that
@@ -76,7 +71,7 @@ class FilterDefaultFormatTest extends BrowserTestBase {
     // default.
     $edit = [];
     $edit['formats[' . $second_format->id() . '][weight]'] = -3;
-    $this->drupalPostForm('admin/config/content/formats', $edit, t('Save'));
+    $this->drupalPostForm('admin/config/content/formats', $edit, 'Save');
     $this->resetFilterCaches();
     $this->assertEqual(filter_default_format($first_user), filter_default_format($second_user), 'After the formats are reordered, both users have the same default format.');
   }

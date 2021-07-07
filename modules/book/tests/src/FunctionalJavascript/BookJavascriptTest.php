@@ -25,11 +25,6 @@ class BookJavascriptTest extends WebDriverTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests re-ordering of books.
    */
   public function testBookOrdering() {

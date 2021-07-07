@@ -25,11 +25,6 @@ class BlockCacheTest extends BrowserTestBase {
   protected $defaultTheme = 'classy';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'classy';
-
-  /**
    * A user with permission to create and edit books and to administer blocks.
    *
    * @var object

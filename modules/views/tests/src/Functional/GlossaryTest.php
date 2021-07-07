@@ -29,11 +29,6 @@ class GlossaryTest extends ViewTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests the default glossary view.
    */
   public function testGlossaryView() {

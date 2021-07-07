@@ -24,11 +24,6 @@ class AlterTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests if the theme has been altered.
    */
   public function testDrupalAlter() {

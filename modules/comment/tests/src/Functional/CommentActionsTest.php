@@ -25,11 +25,6 @@ class CommentActionsTest extends CommentTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests comment publish and unpublish actions.
    */
   public function testCommentPublishUnpublishActions() {

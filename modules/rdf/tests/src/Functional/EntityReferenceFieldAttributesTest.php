@@ -36,18 +36,6 @@ class EntityReferenceFieldAttributesTest extends TaxonomyTestBase {
   protected $baseUri;
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
-   * URI of the front page of the Drupal site.
-   *
-   * @var string
-   */
-  protected $baseUri;
-
-  /**
    * The name of the taxonomy term reference field used in the test.
    *
    * @var string

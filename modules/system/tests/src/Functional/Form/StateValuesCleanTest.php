@@ -27,15 +27,10 @@ class StateValuesCleanTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests \Drupal\Core\Form\FormState::cleanValues().
    */
   public function testFormStateValuesClean() {
-    $this->drupalPostForm('form_test/form-state-values-clean', [], t('Submit'));
+    $this->drupalPostForm('form_test/form-state-values-clean', [], 'Submit');
     $values = Json::decode($this->getSession()->getPage()->getContent());
 
     // Setup the expected result.

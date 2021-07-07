@@ -24,11 +24,6 @@ class ContentTranslationUISkipTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests the content_translation_ui_skip key functionality.
    */
   public function testUICheckSkip() {

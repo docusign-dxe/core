@@ -25,11 +25,6 @@ class TwigDebugMarkupTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests debug markup added to Twig template output.
    */
   public function testTwigDebugMarkup() {

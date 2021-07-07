@@ -19,7 +19,7 @@ class EntityReferenceAutoCreateTest extends BrowserTestBase {
 
   use EntityReferenceTestTrait;
 
-  protected static $modules = ['node', 'taxonomy'];
+  protected static $modules = ['node', 'taxonomy', 'entity_test'];
 
   /**
    * {@inheritdoc}
@@ -105,7 +105,8 @@ class EntityReferenceAutoCreateTest extends BrowserTestBase {
    */
   public function testAutoCreate() {
     $this->drupalGet('node/add/' . $this->referencingType);
-    $this->assertFieldByXPath('//input[@id="edit-test-field-0-target-id" and contains(@class, "form-autocomplete")]', NULL, 'The autocomplete input element appears.');
+    $target = $this->assertSession()->fieldExists("edit-test-field-0-target-id");
+    $this->assertTrue($target->hasClass("form-autocomplete"));
 
     $new_title = $this->randomMachineName();
 

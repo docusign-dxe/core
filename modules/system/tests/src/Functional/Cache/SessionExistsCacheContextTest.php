@@ -25,11 +25,6 @@ class SessionExistsCacheContextTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Tests \Drupal\Core\Cache\Context\SessionExistsCacheContext::getContext().
    */
   public function testCacheContext() {

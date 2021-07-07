@@ -35,11 +35,6 @@ class AccessTest extends ViewTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Web user for testing.
    *
    * @var \Drupal\user\UserInterface
@@ -58,7 +53,7 @@ class AccessTest extends ViewTestBase {
 
     $this->enableViewsTestModule();
 
-    ViewTestData::createTestViews(get_class($this), ['views_test_data']);
+    ViewTestData::createTestViews(static::class, ['views_test_data']);
 
     $this->webUser = $this->drupalCreateUser();
 

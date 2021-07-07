@@ -30,11 +30,6 @@ class BlockContentCacheTagsTest extends EntityCacheTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
   protected function createEntity() {
     $block_content_type = BlockContentType::create([
       'id' => 'basic',

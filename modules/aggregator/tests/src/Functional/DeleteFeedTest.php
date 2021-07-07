@@ -22,11 +22,6 @@ class DeleteFeedTest extends AggregatorTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
-
-  /**
    * Deletes a feed and ensures that all of its services are deleted.
    */
   public function testDeleteFeed() {
