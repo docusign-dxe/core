@@ -5,6 +5,8 @@
  * Post update functions for Node.
  */
 
+use Drupal\views\Entity\View;
+
 /**
  * Implements hook_removed_post_updates().
  */

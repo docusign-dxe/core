@@ -58,6 +58,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   include_translations: false
  * @endcode
  *
+ * For additional configuration keys, refer to the parent class:
+ * @see \Drupal\migrate\Plugin\migrate\source\SourcePluginBase
+ *
  * @MigrateSource(
  *   id = "content_entity",
  *   source_module = "migrate_drupal",
@@ -276,7 +279,7 @@ class ContentEntity extends SourcePluginBase implements ContainerFactoryPluginIn
   public function getIds() {
     $id_key = $this->entityType->getKey('id');
     $ids[$id_key] = $this->getDefinitionFromEntity($id_key);
-    if ($this->entityType->isRevisionable()) {
+    if ($this->configuration['add_revision_id'] && $this->entityType->isRevisionable()) {
       $revision_key = $this->entityType->getKey('revision');
       $ids[$revision_key] = $this->getDefinitionFromEntity($revision_key);
     }

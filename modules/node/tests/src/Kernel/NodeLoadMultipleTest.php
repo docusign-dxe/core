@@ -2,6 +2,8 @@
 
 namespace Drupal\Tests\node\Kernel;
 
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
 
 /**

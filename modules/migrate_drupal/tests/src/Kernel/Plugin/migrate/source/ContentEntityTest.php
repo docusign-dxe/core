@@ -347,22 +347,34 @@ class ContentEntityTest extends KernelTestBase {
     $values = $node_source->current()->getSource();
     $this->assertEquals($this->bundle, $values['type'][0]['target_id']);
     $this->assertEquals(1, $values['nid']);
-    $this->assertEquals(1, $values['vid']);
+    if ($configuration['add_revision_id']) {
+      $this->assertEquals(1, $values['vid']);
+    }
+    else {
+      $this->assertEquals([['value' => '1']], $values['vid']);
+    }
     $this->assertEquals('en', $values['langcode']);
     $this->assertEquals(1, $values['status'][0]['value']);
     $this->assertEquals('Apples', $values['title'][0]['value']);
     $this->assertEquals(1, $values['default_langcode'][0]['value']);
     $this->assertEquals(1, $values['field_entity_reference'][0]['target_id']);
-    $node_source->next();
-    $values = $node_source->current()->getSource();
-    $this->assertEquals($this->bundle, $values['type'][0]['target_id']);
-    $this->assertEquals(1, $values['nid']);
-    $this->assertEquals(1, $values['vid']);
-    $this->assertEquals('fr', $values['langcode']);
-    $this->assertEquals(1, $values['status'][0]['value']);
-    $this->assertEquals('Pommes', $values['title'][0]['value']);
-    $this->assertEquals(0, $values['default_langcode'][0]['value']);
-    $this->assertEquals(1, $values['field_entity_reference'][0]['target_id']);
+    if ($configuration['include_translations']) {
+      $node_source->next();
+      $values = $node_source->current()->getSource();
+      $this->assertEquals($this->bundle, $values['type'][0]['target_id']);
+      $this->assertEquals(1, $values['nid']);
+      if ($configuration['add_revision_id']) {
+        $this->assertEquals(1, $values['vid']);
+      }
+      else {
+        $this->assertEquals([0 => ['value' => 1]], $values['vid']);
+      }
+      $this->assertEquals('fr', $values['langcode']);
+      $this->assertEquals(1, $values['status'][0]['value']);
+      $this->assertEquals('Pommes', $values['title'][0]['value']);
+      $this->assertEquals(0, $values['default_langcode'][0]['value']);
+      $this->assertEquals(1, $values['field_entity_reference'][0]['target_id']);
+    }
   }
 
   /**
@@ -405,7 +417,12 @@ class ContentEntityTest extends KernelTestBase {
     $media_source->rewind();
     $values = $media_source->current()->getSource();
     $this->assertEquals(1, $values['mid']);
-    $this->assertEquals(1, $values['vid']);
+    if ($configuration['add_revision_id']) {
+      $this->assertEquals(1, $values['vid']);
+    }
+    else {
+      $this->assertEquals([['value' => 1]], $values['vid']);
+    }
     $this->assertEquals('Foo media', $values['name'][0]['value']);
     $this->assertNull($values['thumbnail'][0]['title']);
     $this->assertEquals(1, $values['uid'][0]['target_id']);
@@ -433,11 +450,10 @@ class ContentEntityTest extends KernelTestBase {
       ->createStubMigration($this->migrationDefinition('content_entity:taxonomy_term', $configuration));
     $term_source = $migration->getSourcePlugin();
     $this->assertSame('taxonomy terms', $term_source->__toString());
-    $this->assertEquals(2, $term_source->count());
-    $ids = $term_source->getIds();
-    $this->assertArrayHasKey('langcode', $ids);
-    $this->assertArrayHasKey('revision_id', $ids);
-    $this->assertArrayHasKey('tid', $ids);
+    if (!$configuration['include_translations']) {
+      $this->assertEquals(2, $term_source->count());
+    }
+    $this->assertIds($term_source, $configuration);
     $fields = $term_source->fields();
     $this->assertArrayHasKey('vid', $fields);
     $this->assertArrayHasKey('revision_id', $fields);
@@ -447,16 +463,38 @@ class ContentEntityTest extends KernelTestBase {
     $values = $term_source->current()->getSource();
     $this->assertEquals($this->vocabulary, $values['vid'][0]['target_id']);
     $this->assertEquals(1, $values['tid']);
-    // @TODO: Add test coverage for parent in
-    // https://www.drupal.org/project/drupal/issues/2940198
     $this->assertEquals('Apples', $values['name'][0]['value']);
+    $this->assertSame([['target_id' => '0']], $values['parent']);
     $term_source->next();
     $values = $term_source->current()->getSource();
     $this->assertEquals($this->vocabulary, $values['vid'][0]['target_id']);
     $this->assertEquals(2, $values['tid']);
-    // @TODO: Add test coverage for parent in
-    // https://www.drupal.org/project/drupal/issues/2940198
     $this->assertEquals('Granny Smith', $values['name'][0]['value']);
+    $this->assertSame([['target_id' => '1']], $values['parent']);
+  }
+
+  /**
+   * Data provider for several test methods.
+   *
+   * @see \Drupal\Tests\migrate_drupal\Kernel\Plugin\migrate\source\ContentEntityTest::testUserSource
+   * @see \Drupal\Tests\migrate_drupal\Kernel\Plugin\migrate\source\ContentEntityTest::testFileSource
+   * @see \Drupal\Tests\migrate_drupal\Kernel\Plugin\migrate\source\ContentEntityTest::testNodeSource
+   * @see \Drupal\Tests\migrate_drupal\Kernel\Plugin\migrate\source\ContentEntityTest::testMediaSource
+   * @see \Drupal\Tests\migrate_drupal\Kernel\Plugin\migrate\source\ContentEntityTest::testTermSource
+   */
+  public function migrationConfigurationProvider() {
+    $data = [];
+    foreach ([FALSE, TRUE] as $include_translations) {
+      foreach ([FALSE, TRUE] as $add_revision_id) {
+        $configuration = [
+          'include_translations' => $include_translations,
+          'add_revision_id' => $add_revision_id,
+        ];
+        // Add an array key for this data set.
+        $data[http_build_query($configuration)] = [$configuration];
+      }
+    }
+    return $data;
   }
 
   /**
