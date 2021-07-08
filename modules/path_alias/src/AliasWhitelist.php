@@ -17,8 +17,6 @@ use Drupal\Core\State\StateInterface;
  */
 class AliasWhitelist extends CacheCollector implements AliasWhitelistInterface {
 
-  use DeprecatedServicePropertyTrait;
-
   /**
    * {@inheritdoc}
    */
