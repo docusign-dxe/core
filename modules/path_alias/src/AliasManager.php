@@ -17,8 +17,6 @@ use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceExce
  */
 class AliasManager implements AliasManagerInterface {
 
-  use DeprecatedServicePropertyTrait;
-
   /**
    * The path alias repository.
    *

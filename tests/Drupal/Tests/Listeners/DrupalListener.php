@@ -11,7 +11,6 @@ use Symfony\Bridge\PhpUnit\Legacy\SymfonyTestsListenerTrait;
 use Symfony\Bridge\PhpUnit\SymfonyTestsListener;
 
 /**
- * @file
  * Listens to PHPUnit test runs.
  *
  * This listener orchestrates error handlers to ensure deprecations are skipped
@@ -139,4 +138,4 @@ class DrupalListener implements TestListener {
     $this->removeErrorHandler();
   }
 
-class_alias("Drupal\TestTools\PhpUnitCompatibility\PhpUnit" . RunnerVersion::getMajor() . "\DrupalListener", DrupalListener::class);
+}

@@ -4,10 +4,8 @@ namespace Drupal\Tests\file\Functional;
 
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\TestTools\PhpUnitCompatibility\RunnerVersion;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\file\Entity\File;
-use Drupal\Tests\Traits\ExpectDeprecationTrait;
 
 /**
  * Tests validation functions such as file type, max file size, max size per
@@ -16,13 +14,6 @@ use Drupal\Tests\Traits\ExpectDeprecationTrait;
  * @group file
  */
 class FileFieldValidateTest extends FileFieldTestBase {
-
-  use ExpectDeprecationTrait;
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $defaultTheme = 'stark';
 
   /**
    * {@inheritdoc}

@@ -979,10 +979,6 @@ class DrupalKernel implements DrupalKernelInterface, TerminableInterface {
       return;
     }
 
-    // Default the status code to 500 before any other code is run. This will
-    // make any FATAL errors return 500 responses instead of 200.
-    http_response_code(500);
-
     // Determine the application root if it's not supplied.
     if ($app_root === NULL) {
       $app_root = static::guessApplicationRoot();

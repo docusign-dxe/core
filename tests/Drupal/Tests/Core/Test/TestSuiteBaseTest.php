@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\Core\Test;
 
-use Drupal\TestTools\PhpUnitCompatibility\RunnerVersion;
 use Drupal\Tests\TestSuites\TestSuiteBase;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
@@ -10,13 +9,6 @@ use PHPUnit\Framework\TestCase;
 // The test suite class is not part of the autoloader, we need to include it
 // manually.
 require_once __DIR__ . '/../../../../TestSuites/TestSuiteBase.php';
-
-// In order to manage different method signatures between PHPUnit versions, we
-// dynamically load a compatibility trait dependent on the PHPUnit runner
-// version.
-if (!trait_exists(PhpunitVersionDependentStubTestSuiteBaseTrait::class, FALSE)) {
-  class_alias("Drupal\TestTools\PhpUnitCompatibility\PhpUnit" . RunnerVersion::getMajor() . "\StubTestSuiteBaseTrait", PhpunitVersionDependentStubTestSuiteBaseTrait::class);
-}
 
 /**
  * @coversDefaultClass \Drupal\Tests\TestSuites\TestSuiteBase
@@ -127,8 +119,6 @@ class TestSuiteBaseTest extends TestCase {
  * testable.
  */
 class StubTestSuiteBase extends TestSuiteBase {
-
-  use PhpunitVersionDependentStubTestSuiteBaseTrait;
 
   /**
    * Test files discovered by addTestsBySuiteNamespace().

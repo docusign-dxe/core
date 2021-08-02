@@ -18,11 +18,9 @@ if (!class_exists(ResultPrinterBase::class, FALSE)) {
 }
 
 /**
- * @file
  * Defines a class for providing html output results for functional tests.
  *
- * In order to manage different method signatures between PHPUnit versions, we
- * dynamically load a class dependent on the PHPUnit runner version.
+ * @internal
  */
 class HtmlOutputPrinter extends ResultPrinterBase {
 
@@ -34,6 +32,7 @@ class HtmlOutputPrinter extends ResultPrinterBase {
   public function printResult(TestResult $result): void {
     parent::printResult($result);
 
-use Drupal\TestTools\PhpUnitCompatibility\RunnerVersion;
+    $this->printHtmlOutput();
+  }
 
-class_alias("Drupal\TestTools\PhpUnitCompatibility\PhpUnit" . RunnerVersion::getMajor() . "\HtmlOutputPrinter", HtmlOutputPrinter::class);
+}

@@ -274,14 +274,6 @@ media_library.ui:
   js:
     js/media-library.ui.js: { weight: -1 }
 
-media_library.ui:
-  version: VERSION
-  css:
-    component:
-      css/components/media-library.ui.css : {}
-  js:
-    js/media-library.ui.js: { weight: -1 }
-
 progress:
   version: VERSION
   css:
