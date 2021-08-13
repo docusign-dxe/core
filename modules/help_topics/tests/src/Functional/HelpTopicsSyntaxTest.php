@@ -45,14 +45,13 @@ class HelpTopicsSyntaxTest extends BrowserTestBase {
     // will be defined.
     $module_directories = $this->listDirectories('module');
     $modules_to_install = array_keys($module_directories);
-    $modules_to_install = $this->removeDeprecatedModules($modules_to_install);
     \Drupal::service('module_installer')->install($modules_to_install);
     $theme_directories = $this->listDirectories('theme');
     \Drupal::service('theme_installer')->install(array_keys($theme_directories));
 
     $directories = $module_directories + $theme_directories +
       $this->listDirectories('profile');
-    $directories['core'] = \Drupal::service('app.root') . '/core/help_topics';
+    $directories['core'] = \Drupal::root() . '/core/help_topics';
     $directories['bad_help_topics'] = \Drupal::service('extension.list.module')->getPath('help_topics_test') . '/bad_help_topics/syntax/';
 
     // Filter out directories outside of core. If you want to run this test

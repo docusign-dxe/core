@@ -4,7 +4,6 @@ namespace Drupal\system\Plugin\Condition;
 
 use Drupal\Core\Condition\ConditionPluginBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Path\AliasManagerInterface as CoreAliasManagerInterface;
 use Drupal\Core\Path\CurrentPathStack;
 use Drupal\Core\Path\PathMatcherInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -131,6 +130,9 @@ class RequestPath extends ConditionPluginBase implements ContainerFactoryPluginI
    * {@inheritdoc}
    */
   public function summary() {
+    if (empty($this->configuration['pages'])) {
+      return $this->t('No page is specified');
+    }
     $pages = array_map('trim', explode("\n", $this->configuration['pages']));
     $pages = implode(', ', $pages);
     if (!empty($this->configuration['negate'])) {

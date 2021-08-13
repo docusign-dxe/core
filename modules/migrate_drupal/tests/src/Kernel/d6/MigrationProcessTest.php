@@ -12,13 +12,12 @@ use Drupal\Tests\DeprecatedModulesTestTrait;
  */
 class MigrationProcessTest extends MigrateDrupal6TestBase {
 
-  use DeprecatedModulesTestTrait;
   use FileSystemModuleDiscoveryDataProviderTrait;
 
   /**
    * {@inheritdoc}
    */
-  public function setUp() {
+  public function setUp(): void {
     self::$modules = array_keys($this->coreModuleListDataProvider());
     self::$modules = $this->removeDeprecatedModules(self::$modules);
     parent::setUp();

@@ -6,7 +6,6 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\migrate\MigrateLookupInterface;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\MigrateExecutableInterface;
-use Drupal\migrate\Plugin\MigrateProcessInterface;
 use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -19,16 +18,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class FieldFile extends ProcessPluginBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The migration process plugin, configured for lookups in d6_file.
+   * The migrate lookup service.
    *
-   * @var \Drupal\migrate\Plugin\MigrateProcessInterface
-   *
-   * @deprecated in drupal:8.8.x and is removed from drupal:9.0.0. Use
-   *   the migrate.lookup service instead.
-   *
-   * @see https://www.drupal.org/node/3047268
+   * @var \Drupal\migrate\MigrateLookupInterface
    */
-  protected $migrationPlugin;
+  protected $migrateLookup;
 
   /**
    * The migrate lookup service.
@@ -51,8 +45,7 @@ class FieldFile extends ProcessPluginBase implements ContainerFactoryPluginInter
    * @param \Drupal\migrate\MigrateLookupInterface $migrate_lookup
    *   The migrate lookup service.
    */
-  // @codingStandardsIgnoreLine
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, $migrate_lookup) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, MigrateLookupInterface $migrate_lookup) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
     if ($migrate_lookup instanceof MigrateProcessInterface) {
@@ -92,24 +85,10 @@ class FieldFile extends ProcessPluginBase implements ContainerFactoryPluginInter
     // some reason -- file migration is notoriously brittle -- and we do NOT
     // want to send invalid file references into the field system (it causes
     // fatals), so return an empty item instead.
-    // This BC layer is included because if the plugin constructor was called
-    // in the legacy way with a migration_lookup process plugin, it may have
-    // been preconfigured with a different migration to look up against. While
-    // this is unlikely, for maximum BC we will continue to use the plugin to do
-    // the lookup if it is provided, and support for this will be removed in
-    // Drupal 9.
-    if ($this->migrationPlugin) {
-      $fid = $this->migrationPlugin->transform($value['fid'], $migrate_executable, $row, $destination_property);
-    }
-    else {
-      $lookup_result = $this->migrateLookup->lookup('d6_file', [$value['fid']]);
-      if ($lookup_result) {
-        $fid = $lookup_result[0]['fid'];
-      }
-    }
-    if (!empty($fid)) {
+    $lookup_result = $this->migrateLookup->lookup('d6_file', [$value['fid']]);
+    if ($lookup_result) {
       return [
-        'target_id' => $fid,
+        'target_id' => $lookup_result[0]['fid'],
         'display' => $value['list'],
         'description' => isset($options['description']) ? $options['description'] : '',
         'alt' => isset($options['alt']) ? $options['alt'] : '',

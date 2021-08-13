@@ -6,8 +6,6 @@
  */
 
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\ContentEntityNullStorage;
-use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\workspaces\Entity\Workspace;
 
 /**
@@ -41,7 +39,6 @@ function workspaces_module_preinstall($module) {
   $workspace_manager = \Drupal::service('workspaces.manager');
   $entity_definition_update_manager = \Drupal::entityDefinitionUpdateManager();
   foreach ($entity_definition_update_manager->getEntityTypes() as $entity_type) {
-    $revision_metadata_keys = $entity_type->get('revision_metadata_keys');
     if ($workspace_manager->isEntityTypeSupported($entity_type)) {
       $entity_type->setRevisionMetadataKey('workspace', 'workspace');
       $entity_definition_update_manager->updateEntityType($entity_type);
@@ -123,44 +120,10 @@ function workspaces_schema() {
 }
 
 /**
- * Add the 'workspace' revision metadata field on all supported entity types.
+ * Implements hook_update_last_removed().
  */
-function workspaces_update_8801() {
-  /** @var \Drupal\workspaces\WorkspaceManagerInterface $workspace_manager */
-  $workspace_manager = \Drupal::service('workspaces.manager');
-  $entity_definition_update_manager = \Drupal::entityDefinitionUpdateManager();
-  foreach ($entity_definition_update_manager->getEntityTypes() as $entity_type_id => $entity_type) {
-    if ($workspace_manager->isEntityTypeSupported($entity_type)) {
-      $revision_metadata_keys = $entity_type->get('revision_metadata_keys');
-
-      if (!isset($revision_metadata_keys['workspace'])) {
-        $revision_metadata_field_name = 'workspace';
-
-        // Bail out if there's an existing field called 'workspace'.
-        if ($entity_definition_update_manager->getFieldStorageDefinition($revision_metadata_field_name, $entity_type_id)) {
-          throw new \RuntimeException("An existing 'workspace' field was found for the '$entity_type_id' entity type. Set the 'workspace' revision metadata key to use a different field name and run this update function again.");
-        }
-
-        $entity_type->setRevisionMetadataKey('workspace', $revision_metadata_field_name);
-        $entity_definition_update_manager->updateEntityType($entity_type);
-      }
-      else {
-        $revision_metadata_field_name = $revision_metadata_keys['workspace'];
-      }
-
-      $field_storage = BaseFieldDefinition::create('entity_reference')
-        ->setLabel(t('Workspace'))
-        ->setDescription(t('Indicates the workspace that this revision belongs to.'))
-        ->setSetting('target_type', 'workspace')
-        ->setInternal(TRUE)
-        ->setTranslatable(FALSE)
-        ->setRevisionable(TRUE);
-
-      $entity_definition_update_manager->installFieldStorageDefinition($revision_metadata_field_name, $entity_type_id, 'workspaces', $field_storage);
-    }
-  }
-
-  return t("The 'workspace' revision metadata field has been installed.");
+function workspaces_update_last_removed() {
+  return 8803;
 }
 
 /**
